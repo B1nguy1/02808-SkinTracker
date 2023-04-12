@@ -1,9 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import Home from "../screens/Home";
+import HomeScreen from "../screens/StartScreen";
 import Recording from "../screens/Recording";
 import User from "../screens/User";
-import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 
@@ -13,10 +12,14 @@ export const BottomTapNavigator = () => {
 
     return (
         <SafeAreaProvider>
-            <bottomTab.Navigator>
+            <bottomTab.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
                 <bottomTab.Screen
                     name= "HomeScreen"
-                    component={Home}
+                    component={HomeScreen}
                 />
             <bottomTab.Screen
                     name= "RecScreen"
