@@ -1,15 +1,23 @@
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View, StyleSheet,Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-paper';
+import { ScreenStackParamList } from '../navigations';
 
 
-const StartScreen = () => {
-    const navigation = useNavigation();
+type LoginNavigationProp = StackNavigationProp<ScreenStackParamList,'Home'>;
+
+const Login = () => {
+    const navigation = useNavigation<LoginNavigationProp>();
     const [userName,setUserName] = React.useState("");
     const [password,setPassword] = React.useState("");
     
+    const navigateTest = () => {
+        navigation.navigate("Home");
+    }
+
     return(
         <View style={styles.input}>
             <Text> Skin Tracker </Text>
@@ -35,7 +43,7 @@ const StartScreen = () => {
             <Button 
                 textColor='white'
                 buttonColor='#FF75A7'
-                onPress={() => console.log(userName + " " + password)}
+                onPress={() => navigateTest()}
             >
                 Login!
             </Button>
@@ -82,4 +90,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default StartScreen;
+export default Login;

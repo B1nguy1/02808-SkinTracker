@@ -1,14 +1,15 @@
 //import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { BottomTapNavigator } from './navigations';
+import { BottomTabNavigator, ScreenNavigator } from './navigations';
 import React from 'react';
-import HomeScreen from './screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   return (
-    <View>
-      <HomeScreen />
-    </View>
+    <NavigationContainer>
+      <ScreenNavigator />
+    </NavigationContainer>
   );
 }
 
