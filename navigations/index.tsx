@@ -26,7 +26,7 @@ export const ScreenNavigator = () => {
         name="Login"
         component={Login}
         options={{
-          headerShown: false,
+          headerShown:false
         }}
       />
       <Stack.Screen

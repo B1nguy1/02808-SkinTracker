@@ -5,6 +5,7 @@ import { TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { LoginNavigationProp } from "../utils/navigation.props";
 import { FontAwesome5 } from "@expo/vector-icons";
+import LoginHeader from "../components/LoginHeader";
 
 const Login = () => {
   const navigation = useNavigation<LoginNavigationProp>();
@@ -13,8 +14,8 @@ const Login = () => {
 
   return (
     <View style={styles.input}>
-      <Text> Skin Tracker </Text>
-      <View>
+      <LoginHeader />
+      <View style={{marginLeft:30, marginTop: 30}}>
         <Text style={styles.textStyle}> Welcome! </Text>
 
         <View style={{ margin: 10 }}>
@@ -62,12 +63,12 @@ const Login = () => {
         </View>
       </View>
       <View>
-        <Text> Or login with </Text>
+        <Text style={{marginTop: 40, fontSize: 17, alignSelf:"center"}}> Or login with </Text>
         <View style={{ alignItems: "center" }}>
           <View
             style={{
               alignItems: "center",
-              marginTop: 30,
+              marginTop: 20,
               flexDirection: "row",
               justifyContent: "space-around",
               width: "50%",
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   buttonStyle: {
-    marginTop: 30,
+    marginTop: 20,
     width: 200,
   },
   button1: {
