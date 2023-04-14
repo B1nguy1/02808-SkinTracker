@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     height: 140,
     borderColor: "#808080",
     borderWidth: 2,
-    backgroundColor:"#f5cac3"
+    backgroundColor:"#f5cac3",
+    borderRadius:10
   },
   iconViewStyle:{
     alignItems:"center",

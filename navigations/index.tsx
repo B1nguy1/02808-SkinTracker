@@ -49,7 +49,7 @@ export const BottomTabNavigator = () => {
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: "red",
-          tabBarInactiveTintColor: "red",
+          tabBarInactiveTintColor: "#f72585",
           tabBarLabelStyle: {
             fontSize: 12,
             textTransform: "none",
@@ -58,8 +58,8 @@ export const BottomTabNavigator = () => {
       >
         <Tab.Screen
           options={{
-            tabBarIcon: () => (
-              <FontAwesome name="home" size={30} color="#f72585" />
+            tabBarIcon: ({focused}) => (
+              <FontAwesome name="home" size={30} color={focused ? "red" : "#f72585"} />
             ),
           }}
           name="Home"
@@ -67,8 +67,8 @@ export const BottomTabNavigator = () => {
         />
         <Tab.Screen
           options={{
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="pencil" size={30} color="#f72585" />
+            tabBarIcon: ({focused}) => (
+              <MaterialCommunityIcons name="pencil" size={30} color={focused ? "red" : "#f72585"} />
             ),
           }}
           name="Recording"
@@ -76,8 +76,8 @@ export const BottomTabNavigator = () => {
         />
         <Tab.Screen
           options={{
-            tabBarIcon: () => (
-              <FontAwesome5 name="user" size={24} color="#f72585" />
+            tabBarIcon: ({focused}) => (
+              <FontAwesome5 name="user" size={24} color={focused ? "red" : "#f72585"} />
             ),
           }}
           name="User"

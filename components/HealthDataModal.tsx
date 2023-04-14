@@ -17,19 +17,21 @@ const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
                 visible={props.visible}
                 onRequestClose={() => props.setVisible()}
             >
-            <View style={styles.subContainer}>
-                <View>
-                    <Text>Do you want to synchronize local data?</Text>
+            <View style={styles.container}>
+                <View style={styles.subContainer}>
+                    <Text style={{fontSize:15}}>Do you want to synchronize local data?</Text>
+                    <View style={styles.buttonContainer}>
                     <View>
                     <Pressable onPress={() => props.setVisible()}>
-                        <Text style={{color:"red"}}> NO </Text>
+                        <Text style={{color:"red", fontSize:15, marginRight: 20}}> NO </Text>
                     </Pressable>
                     </View>
                     <View>
                         <Pressable onPress={() => props.setVisible()}>
-                            <Text style={{color:"lightblue"}}>YES</Text>
+                            <Text style={{color:"#2194FF", fontSize: 15}}>YES</Text>
                         </Pressable>
                     </View>
+                </View>
                 </View>
             </View>
             </Modal>
@@ -58,6 +60,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+    },
+    buttonContainer:{
+        marginTop:20,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-around"
     }
 })
 

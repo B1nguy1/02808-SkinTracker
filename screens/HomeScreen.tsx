@@ -23,7 +23,9 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
       <Text style={styles.textStyle}> Home </Text>
+      </View>
       {getCardInfo.map((k) => {
         return (
           <View>
@@ -79,11 +81,15 @@ const styles = StyleSheet.create({
     borderColor: "#808080",
     borderWidth: 2,
     backgroundColor: "#f5cac3",
+    borderRadius:10
   },
   textStyle: {
     fontWeight: "bold",
     color: "#FF75A7",
     fontSize: 30,
+    textAlign:"left",
+    marginRight:200,
+    marginBottom:20,
   },
   iconButton: {
     flexDirection: "row",
