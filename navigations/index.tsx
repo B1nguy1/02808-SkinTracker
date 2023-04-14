@@ -6,11 +6,16 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
 import HomeScreen from "../screens/HomeScreen";
+import {
+  FontAwesome,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 export type ScreenStackParamList = {
-    Login: {};
-    Home: undefined;
-}
+  Login: {};
+  Root: undefined;
+};
 
 const Stack = createStackNavigator<ScreenStackParamList>();
 
@@ -24,17 +29,16 @@ export const ScreenNavigator = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen 
-        name="Home"
+      <Stack.Screen
+        name="Root"
         component={BottomTabNavigator}
         options={{
-            headerShown:false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
   );
 };
-
 
 const Tab = createBottomTabNavigator();
 
@@ -44,11 +48,41 @@ export const BottomTabNavigator = () => {
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarActiveTintColor: "red",
+          tabBarInactiveTintColor: "red",
+          tabBarLabelStyle: {
+            fontSize: 12,
+            textTransform: "none",
+          },
         }}
       >
-        <Tab.Screen name="HomeScreen" component={HomeScreen} />
-        <Tab.Screen name="RecScreen" component={Recording} />
-        <Tab.Screen name="UserScreen" component={User} />
+        <Tab.Screen
+          options={{
+            tabBarIcon: () => (
+              <FontAwesome name="home" size={30} color="#f72585" />
+            ),
+          }}
+          name="Home"
+          component={HomeScreen}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: () => (
+              <MaterialCommunityIcons name="pencil" size={30} color="#f72585" />
+            ),
+          }}
+          name="Recording"
+          component={Recording}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: () => (
+              <FontAwesome5 name="user" size={24} color="#f72585" />
+            ),
+          }}
+          name="User"
+          component={User}
+        />
       </Tab.Navigator>
     </SafeAreaProvider>
   );

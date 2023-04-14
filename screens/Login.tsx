@@ -45,7 +45,7 @@ const Login = () => {
             <Button
               textColor="white"
               buttonColor="#FF75A7"
-              onPress={() => navigation.navigate("Home")}
+              onPress={() => navigation.navigate("Root")}
             >
               Login!
             </Button>
