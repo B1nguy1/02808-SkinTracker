@@ -24,9 +24,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: 300,
     height: 140,
-    borderColor: "black",
+    borderColor: "#808080",
     borderWidth: 2,
-    backgroundColor:"#f5cac3"
+    backgroundColor:"#f5cac3",
+    borderRadius:10
   },
   iconViewStyle:{
     alignItems:"center",
