@@ -11,6 +11,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Login = () => {
   const navigation = useNavigation<LoginNavigationProp>();
@@ -21,12 +23,15 @@ const Login = () => {
     createUserWithEmailAndPassword(auth, userName, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        const doc_ref = addDoc(collection(db,"users"),{
+          userID: userCredential.user.uid
+        })
         navigation.navigate("Root");
+
       })
       .catch((e) => {
         console.log(e);
       })
-      .then(() => Alert.alert("Email already in use!"));
   };
 
   const signIn = () => {
