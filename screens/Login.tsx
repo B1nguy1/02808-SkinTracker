@@ -6,7 +6,10 @@ import { Button } from "react-native-paper";
 import { LoginNavigationProp } from "../utils/navigation.props";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LoginHeader from "../components/LoginHeader";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../firebase";
 
 const Login = () => {
@@ -14,34 +17,35 @@ const Login = () => {
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-
   const registerUser = () => {
-    createUserWithEmailAndPassword(auth,userName,password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      navigation.navigate("Root");
-    })
-    .catch((e) => {console.log(e)}
-    ).then(() => Alert.alert("Email already in use!"))
-  }
+    createUserWithEmailAndPassword(auth, userName, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigation.navigate("Root");
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .then(() => Alert.alert("Email already in use!"));
+  };
 
   const signIn = () => {
-    signInWithEmailAndPassword(auth,userName,password)
-    .then((uc) => {
-      const user = uc.user;
-      navigation.navigate("Root");
-    })
-    .catch((e) => {
-      if(e.code === "auth/user-not-found"){
-        Alert.alert("User not found!")
-      }
-    })
-  }
+    signInWithEmailAndPassword(auth, userName, password)
+      .then((uc) => {
+        const user = uc.user;
+        navigation.navigate("Root");
+      })
+      .catch((e) => {
+        if (e.code === "auth/user-not-found") {
+          Alert.alert("User not found!");
+        }
+      });
+  };
 
   return (
     <View style={styles.input}>
       <LoginHeader />
-      <View style={{marginLeft:30, marginTop: 30}}>
+      <View style={{ marginLeft: 30, marginTop: 30 }}>
         <Text style={styles.textStyle}> Welcome! </Text>
 
         <View style={{ margin: 10 }}>
@@ -69,11 +73,7 @@ const Login = () => {
 
         <View style={styles.buttonStyle}>
           <View style={styles.button1}>
-            <Button
-              textColor="white"
-              buttonColor="#FF75A7"
-              onPress={signIn}
-            >
+            <Button textColor="white" buttonColor="#FF75A7" onPress={signIn}>
               Login!
             </Button>
           </View>
@@ -89,7 +89,10 @@ const Login = () => {
         </View>
       </View>
       <View>
-        <Text style={{marginTop: 40, fontSize: 17, alignSelf:"center"}}> Or login with </Text>
+        <Text style={{ marginTop: 40, fontSize: 17, alignSelf: "center" }}>
+          {" "}
+          Or login with{" "}
+        </Text>
         <View style={{ alignItems: "center" }}>
           <View
             style={{
