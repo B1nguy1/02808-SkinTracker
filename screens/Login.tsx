@@ -1,16 +1,42 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { LoginNavigationProp } from "../utils/navigation.props";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LoginHeader from "../components/LoginHeader";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Login = () => {
   const navigation = useNavigation<LoginNavigationProp>();
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+
+  const registerUser = () => {
+    createUserWithEmailAndPassword(auth,userName,password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      navigation.navigate("Root");
+    })
+    .catch((e) => {console.log(e)}
+    ).then(() => Alert.alert("Email already in use!"))
+  }
+
+  const signIn = () => {
+    signInWithEmailAndPassword(auth,userName,password)
+    .then((uc) => {
+      const user = uc.user;
+      navigation.navigate("Root");
+    })
+    .catch((e) => {
+      if(e.code === "auth/user-not-found"){
+        Alert.alert("User not found!")
+      }
+    })
+  }
 
   return (
     <View style={styles.input}>
@@ -46,7 +72,7 @@ const Login = () => {
             <Button
               textColor="white"
               buttonColor="#FF75A7"
-              onPress={() => navigation.navigate("Root")}
+              onPress={signIn}
             >
               Login!
             </Button>
@@ -55,7 +81,7 @@ const Login = () => {
             <Button
               textColor="white"
               buttonColor="#FF75A7"
-              onPress={() => console.log("Test")}
+              onPress={registerUser}
             >
               Sign up
             </Button>
@@ -106,7 +132,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   buttonStyle: {
-    marginTop: 20,
+    marginTop: 10,
     width: 200,
   },
   button1: {
