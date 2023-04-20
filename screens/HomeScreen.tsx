@@ -3,36 +3,45 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Card from "../components/Card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HealthDataModal from "../components/HealthDataModal";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
-const getCardInfo: { cardId: string; cardTitle: string; cardIcon: string }[] = [
-  {
-    cardId: "1",
-    cardTitle: "How is your skin feeling today?",
-    cardIcon: "camera",
-  },
-  {
-    cardId: "2",
-    cardTitle: "Overview of skin",
-    // Should be replace with a real graph later, use this for test purpose
-    cardIcon: "graph",
-  },
-];
+type HomeCardTypes = {
+  id: string;
+  title: string;
+  icon: string;
+}
 
 const HomeScreen = () => {
   const [HealthDataModalVisible, setHealthDataModalVisible] = React.useState(false);
 
+  const [HomeCardInfo, setHomeCardInfo] = React.useState<HomeCardTypes[]>([]);
+
+  const fetchData = async () => {
+    await getDocs(collection(db,"homecards"))
+    .then((querySnapshot) => {
+      const data: any = querySnapshot.docs.map((doc) => ({...doc.data(),id: doc.id}))
+      setHomeCardInfo(data);
+    })
+  }
+
+  React.useEffect(() => {
+    fetchData();
+  },[]);
+
+  console.log(HomeCardInfo);
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
       <Text style={styles.textStyle}> Home </Text>
       </View>
-      {getCardInfo.map((k) => {
+      {HomeCardInfo.map((k) => {
         return (
-          <View>
+          <View key={k.id}>
             <Card
-              cardId={k.cardId}
-              cardTitle={k.cardTitle}
-              cardIcon={k.cardIcon}
+              cardId={k.id}
+              cardTitle={k.title}
+              cardIcon={k.icon}
             />
           </View>
         );

@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 //Setup of firebase database
+// Should keep this in .env file later
 const firebaseConfig = {
     apiKey: "AIzaSyDRtj4kIOC5Q2XhTtBVRyujgwvlhxf9pZU",
     authDomain: "project-df8fa.firebaseapp.com",
@@ -14,3 +16,4 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth();
