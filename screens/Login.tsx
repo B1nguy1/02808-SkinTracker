@@ -27,7 +27,6 @@ const Login = () => {
           userID: userCredential.user.uid
         })
         navigation.navigate("Root");
-
       })
       .catch((e) => {
         console.log(e);

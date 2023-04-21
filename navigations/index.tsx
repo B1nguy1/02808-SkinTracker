@@ -11,6 +11,7 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import DailySkinScreen from "../screens/DailySkinScreen";
 
 export type ScreenStackParamList = {
   Login: {};
@@ -72,7 +73,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="Recording"
-          component={Recording}
+          component={DailySkinScreen}
         />
         <Tab.Screen
           options={{

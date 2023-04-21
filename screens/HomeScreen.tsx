@@ -30,7 +30,6 @@ const HomeScreen = () => {
     fetchData();
   }, []);
 
-  console.log(HomeCardInfo);
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

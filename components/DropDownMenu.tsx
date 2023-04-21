@@ -17,12 +17,15 @@ export interface IDropDown{
 }
 
 const DropDownMenu:React.FC<IDropDown> = ({data,setSelected}) => {
- 
-
+    
     return (
         <SelectList
             setSelected={(val:string) => setSelected(val)}
             data={data}
+            search={false}
+            dropdownTextStyles={{fontSize:16}}
+            boxStyles={{width:"70%",margin:10, marginLeft:50}}
+            inputStyles={{width:"90%",borderRadius:0}}
             save="value"
         />
     )

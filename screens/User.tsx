@@ -1,88 +1,52 @@
 import React from "react";
-import { View, TextInput, Button, Text } from "react-native";
+import { View, Text } from "react-native";
 import {
-  addDoc,
   collection,
   getDocs,
+  limit,
+  orderBy,
   query,
-  serverTimestamp,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
-import { LoginNavigationProp } from "../utils/navigation.props";
 
 interface User {
-  userText: string;
+  skinType:string;
   id: string;
 }
 
 const User = () => {
-  const [text, setText] = React.useState("");
-  const [posts, setPosts] = React.useState<User[]>([]);
-  const postCollectionRef = collection(db, "posts");
-  const navigation = useNavigation<LoginNavigationProp>();
+  const [userSkins, setuserSkins] = React.useState<Array<User>>([]);
+  const skinDataRef  = collection(db, "skinData");
+  const userQuery = query(skinDataRef, where("userRef", "==", getAuth().currentUser?.uid),orderBy("timeStamp","desc"),limit(1));
 
-  const handleAdd = async () => {
-    try {
-      if (getAuth().currentUser?.uid != null) {
-        await addDoc(postCollectionRef, {
-          userText: text,
-          timestamp: serverTimestamp(),
-          userRef: getAuth().currentUser?.uid,
-        });
-        setText("");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getPosts = async () => {
-    const userQuery = query(
-      postCollectionRef,
-      where("userRef", "==", getAuth().currentUser?.uid)
-    );
+  const fetchData = async () => {
     await getDocs(userQuery).then((querySnapshot) => {
       const data: any = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      setPosts(data);
+      setuserSkins(data);
     });
   };
 
   React.useEffect(() => {
-    getPosts();
-  }, []);
+    fetchData();
+  }, [userQuery]);
 
-  const sign_out = () => {
-    getAuth()
-      .signOut()
-      .then(() => {
-        navigation.navigate("Login", {} as never);
-      })
-      .catch((e) => console.log(e));
-  };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <TextInput
-        style={{ height: 40, margin: 12, borderWidth: 2, padding: 10 }}
-        onChangeText={setText}
-        value={text}
-      />
-
-      <Button onPress={handleAdd} title="ADD" />
-      <Button onPress={sign_out} title="SAVE" />
-      {posts.map((post) => {
+      {userSkins ? (userSkins.map((element) => {
         return (
-          <View style={{ flex: 1 }} key={post.id}>
-            <Text> {post.userText} </Text>
+          <View style={{ margin: 20 }} key={element.id}>
+            <Text>Your currently condition: {element.skinType} </Text>
           </View>
         );
-      })}
+      })):(
+        <Text>No tracked skin condition</Text>
+      )}
     </View>
   );
 };
