@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import RecordCard from "../components/RecordCard";
-import DropDownMenu, { DropDownValue } from "../components/DropDownMenu";
+import DropDownMenu from "../components/DropDownMenu";
 
 
 // Just fake data used for testing purpose

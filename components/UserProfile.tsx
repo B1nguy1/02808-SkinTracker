@@ -1,13 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { IUserProfile } from '../utils/interfaces';
 
-interface Skin{
-    type: string;
-    id: string;
-    description: string;
-}
-
-const UserProfile:React.FC<Skin> = ({type,id,description}) => {
+const UserProfile:React.FC<IUserProfile> = ({type,id,description}) => {
     
     return (
         <View>

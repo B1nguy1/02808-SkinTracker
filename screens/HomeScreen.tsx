@@ -4,26 +4,23 @@ import Card from "../components/Card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HealthDataModal from "../components/HealthDataModal";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-type HomeCardTypes = {
-  id: string;
-  title: string;
-  icon: string;
-};
+import { collection, onSnapshot } from "firebase/firestore";
+import { IHomeCard } from "../utils/interfaces";
 
 const HomeScreen = () => {
   const [HealthDataModalVisible, setHealthDataModalVisible] = React.useState(false);
-  const [HomeCardInfo, setHomeCardInfo] = React.useState<HomeCardTypes[]>([]);
+  const [HomeCardInfo, setHomeCardInfo] = React.useState<IHomeCard[]>([]);
 
-  const fetchData = async () => {
-    await getDocs(collection(db, "homecards")).then((querySnapshot) => {
-      const data: any = querySnapshot.docs.map((doc) => ({
+
+  const fetchData = () => {
+    const unsubscribe = onSnapshot(collection(db,"homecards"), (snapshot) => {
+      const data: any = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setHomeCardInfo(data);
     });
+    return unsubscribe;
   };
 
   React.useEffect(() => {
@@ -38,7 +35,7 @@ const HomeScreen = () => {
       {HomeCardInfo.map((k) => {
         return (
           <View key={k.id}>
-            <Card cardId={k.id} cardTitle={k.title} cardIcon={k.icon} />
+            <Card id={k.id} title={k.title} icon={k.icon} />
           </View>
         );
       })}

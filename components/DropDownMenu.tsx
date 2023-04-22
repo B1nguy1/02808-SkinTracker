@@ -1,20 +1,7 @@
 import React from "react";
 import { SelectList } from "react-native-dropdown-select-list";
+import { IDropDown } from "../utils/interfaces";
 
-export interface ISingleDropDown{
-    key: string;
-    value: string;
-    disabled?:boolean;
-}
-
-export interface DropDownValue{
-    value:string;
-}
-
-export interface IDropDown{
-    data: ISingleDropDown[];
-    setSelected: (val: string) => void;
-}
 
 const DropDownMenu:React.FC<IDropDown> = ({data,setSelected}) => {
     

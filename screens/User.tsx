@@ -11,21 +11,11 @@ import {
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import UserProfile from "../components/UserProfile";
-
-interface IUser {
-  skinType: string;
-  id: string;
-}
-
-interface ISkin {
-  type: string;
-  id: string;
-  description: string;
-}
+import { ISkinArray, IUserSkin } from "../utils/interfaces";
 
 const User = () => {
-  const [userSkins, setuserSkins] = React.useState<Array<IUser>>([]);
-  const [skins, setSkins] = React.useState<Array<ISkin>>([]);
+  const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
+  const [skins, setSkins] = React.useState<Array<ISkinArray>>([]);
   const skinDataRef = collection(db, "skinData");
   const userQuery = query(
     skinDataRef,
