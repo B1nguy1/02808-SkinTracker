@@ -2,16 +2,17 @@ import React from "react";
 import { View, Text } from "react-native";
 import {
   collection,
-  getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
+import UserProfile from "../components/UserProfile";
 
-interface User {
+interface IUser {
   skinType: string;
   id: string;
 }
@@ -23,7 +24,7 @@ interface ISkin {
 }
 
 const User = () => {
-  const [userSkins, setuserSkins] = React.useState<Array<User>>([]);
+  const [userSkins, setuserSkins] = React.useState<Array<IUser>>([]);
   const [skins, setSkins] = React.useState<Array<ISkin>>([]);
   const skinDataRef = collection(db, "skinData");
   const userQuery = query(
@@ -33,24 +34,26 @@ const User = () => {
     limit(1)
   );
 
-  const fetchData = async () => {
-    await getDocs(userQuery).then((querySnapshot) => {
-      const data: any = querySnapshot.docs.map((doc) => ({
+  const fetchData = () => {
+    const unsubscribe = onSnapshot(userQuery, (snapshot) => {
+      const data: any = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setuserSkins(data);
     });
+    return unsubscribe;
   };
 
-  const fetchSkins = async () => {
-    await getDocs(collection(db, "skinCollection")).then((querySnapshot) => {
-      const data: any = querySnapshot.docs.map((doc) => ({
+  const fetchSkins = () => {
+    const unsubs = onSnapshot(collection(db, "skinCollection"), (snapshot) => {
+      const data: any = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setSkins(data);
     });
+    return unsubs;
   };
 
   React.useEffect(() => {
@@ -64,13 +67,22 @@ const User = () => {
         userSkins.map((element) => {
           return (
             <View style={{ margin: 20 }} key={element.id}>
-              <Text>{element.skinType}</Text>
               {skins
                 .filter((skin) => skin.type === element.skinType)
                 .map((skin) => {
                   return (
-                    <View style={{justifyContent:"center",alignContent:"center"}} key={skin.id}>
-                      <Text>{skin.description}</Text>
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignContent: "center",
+                      }}
+                      key={skin.id}
+                    >
+                      <UserProfile
+                        type={skin.type}
+                        id={skin.id}
+                        description={skin.description}
+                      />
                     </View>
                   );
                 })}
