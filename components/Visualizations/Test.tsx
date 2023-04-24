@@ -57,16 +57,16 @@ const Test = () => {
     });
   }
   
-  const updatedArray = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
-  const tickLabels = updatedArray.map((d) => d.x);
+  const updatedGraphData = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
+  const tickLabels = updatedGraphData.map((d) => d.x);
   
 
   return (
     <View style={{backgroundColor:"grey"}}>
-    {updatedArray.length > 0 ? (
+    {updatedGraphData.length > 0 ? (
       <VictoryChart width={350} domainPadding={20} theme={VictoryTheme.material}>
       <VictoryBar
-          data={updatedArray}
+          data={updatedGraphData}
           x="x"
           y="y"
           style={{ data: { fill: "orange" } }}
