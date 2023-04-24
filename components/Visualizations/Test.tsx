@@ -12,24 +12,20 @@ type skinTypes = {
   amount: number;
 };
 
-type testTypes = {
-  x: string;
-  y: number;
-};
-
 const Test = () => {
   const [dataGraph, setDataGraph] = React.useState<Array<skinTypes>>([]);
-  const [testData, setTestData] = React.useState<testTypes[]>([]);
+  const [graphData, setGraphData] = React.useState<Array<skinTypes>>([]);
   const skinCollection = collection(db, "skinData");
   const testGraph: { skinType: string; amount: number }[] = [];
-  const query1 = query(
-    skinCollection,
-    where("userRef", "==", getAuth().currentUser?.uid)
-  );
-
+  const query1 = query(skinCollection,where("userRef", "==", getAuth().currentUser?.uid));
+  
   React.useEffect(() => {
     fetchSkins();
   }, []);
+
+  React.useEffect(() => {
+    getData();
+  },[dataGraph])
 
   const fetchSkins = () => {
     const unsubs = onSnapshot(query1, (snapshot) => {
@@ -38,40 +34,44 @@ const Test = () => {
         id: doc.id,
       }));
       setDataGraph(data);
-      const skins: string[] = dataGraph.map(
-        (skin: { skinType: string }) => skin.skinType
-      );
-      const uniqueSkins = Array.from(new Set(skins));
-
-      uniqueSkins.forEach((uSkin: string) => {
-        let count = 0;
-        skins.forEach((skin) => {
-          if (uSkin === skin) {
-            count++;
-          }
-        });
-        testGraph.push({ skinType: uSkin, amount: count });
-        setDataGraph(testGraph);
-      });
     });
     return () => unsubs();
   };
 
-  console.log(dataGraph);
+  const getData = () => {
+    const skins: string[] = dataGraph.map(
+      (skin: { skinType: string }) => skin.skinType
+    );
+    const uniqueSkins = Array.from(new Set(skins));
+
+    uniqueSkins.forEach((uSkin: string) => {
+      let count = 0;
+      skins.forEach((skin) => {
+        if (uSkin === skin) {
+          count++;
+        }
+      });
+       testGraph.push({ skinType: uSkin, amount: count });
+       setGraphData(testGraph);
+
+    });
+  }
+  
+  const updatedArray = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
+  const tickLabels = updatedArray.map((d) => d.x);
 
   return (
     <View>
-      <VictoryChart width={350}>
-        <VictoryAxis tickFormat={dataGraph.map((d) => d.skinType)} />
-        <VictoryAxis dependentAxis={true} />
-        <VictoryBar
-          data={dataGraph}
-          x="skinType"
-          y="amount"
-          alignment="start"
+      <VictoryChart width={350} domainPadding={20}>
+      <VictoryBar
+          data={updatedArray}
+          x="x"
+          y="y"
           style={{ data: { fill: "orange" } }}
           barWidth={10}
         />
+        <VictoryAxis dependentAxis={false} tickFormat={tickLabels}/>
+        <VictoryAxis dependentAxis/>
       </VictoryChart>
     </View>
   );

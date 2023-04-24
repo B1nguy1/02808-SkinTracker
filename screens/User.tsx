@@ -12,6 +12,8 @@ import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import UserProfile from "../components/UserProfile";
 import { ISkinArray, IUserSkin } from "../utils/interfaces";
+import Test from "../components/Visualizations/Test";
+
 
 const User = () => {
   const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
@@ -46,13 +48,16 @@ const User = () => {
     return unsubs;
   };
 
+
   React.useEffect(() => {
     fetchData();
     fetchSkins();
   }, []);
 
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Test />
       {userSkins &&
         userSkins.map((element) => {
           return (
