@@ -76,7 +76,7 @@ const Test = () => {
         <VictoryAxis dependentAxis/>
       </VictoryChart>
   ):(
-    <Text>You have not tracked your skin condition!</Text>
+    <></>
   )}
     </View>
   );

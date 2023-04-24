@@ -8,7 +8,6 @@ interface IHealthDataModal {
 
 const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
 
-
     return (
         <View style={styles.container}>
             <Modal
