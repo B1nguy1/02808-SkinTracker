@@ -1,9 +1,9 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React from "react";
 import { db } from "../../firebase";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text } from "react-native";
 import { getAuth } from "firebase/auth";
-import { VictoryAxis, VictoryBar, VictoryChart } from "victory-native";
+import {VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
 // Playing around with charts
 
@@ -59,10 +59,12 @@ const Test = () => {
   
   const updatedArray = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
   const tickLabels = updatedArray.map((d) => d.x);
+  
 
   return (
-    <View>
-      <VictoryChart width={350} domainPadding={20}>
+    <View style={{backgroundColor:"grey"}}>
+    {updatedArray.length > 0 ? (
+      <VictoryChart width={350} domainPadding={20} theme={VictoryTheme.material}>
       <VictoryBar
           data={updatedArray}
           x="x"
@@ -73,6 +75,9 @@ const Test = () => {
         <VictoryAxis dependentAxis={false} tickFormat={tickLabels}/>
         <VictoryAxis dependentAxis/>
       </VictoryChart>
+  ):(
+    <Text>You have not tracked your skin condition!</Text>
+  )}
     </View>
   );
 };
