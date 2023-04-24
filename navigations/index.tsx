@@ -12,12 +12,12 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import DailySkinScreen from "../screens/DailySkinScreen";
-import Test from "../components/Visualizations/Test";
+import ConditionOverview from "../components/Visualizations/ConditionOverview";
 
 export type ScreenStackParamList = {
   Login: {};
   Root: undefined;
-  Test: undefined;
+  ConditionOverview: undefined;
 };
 
 const Stack = createStackNavigator<ScreenStackParamList>();
@@ -40,8 +40,8 @@ export const ScreenNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="Test"
-        component={Test}
+        name="ConditionOverview"
+        component={ConditionOverview}
       />
     </Stack.Navigator>
   );
