@@ -5,8 +5,6 @@ import { View, Text } from "react-native";
 import { getAuth } from "firebase/auth";
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
-// TODO: Calculate percentage of each "skin type"
-
 type skinTypes = {
   skinType: string;
   amount: number;
