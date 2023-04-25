@@ -5,18 +5,19 @@ import User from "../screens/User";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
-import HomeScreen from "../screens/HomeScreen";
+import { HomeNavigation } from "./HomeNavigation";
 import {
   FontAwesome,
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import DailySkinScreen from "../screens/DailySkinScreen";
 import ConditionOverview from "../components/Visualizations/ConditionOverview";
+
 
 export type ScreenStackParamList = {
   Login: {};
   Root: undefined;
+  DailySkinScreen: {};
   ConditionOverview: undefined;
 };
 
@@ -53,6 +54,7 @@ export const BottomTabNavigator = () => {
   return (
     <SafeAreaProvider>
       <Tab.Navigator
+        initialRouteName="Root"
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: "red",
@@ -61,6 +63,7 @@ export const BottomTabNavigator = () => {
             fontSize: 12,
             textTransform: "none",
           },
+          
         }}
       >
         <Tab.Screen
@@ -70,7 +73,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="Home"
-          component={HomeScreen}
+          component={HomeNavigation}
         />
         <Tab.Screen
           options={{
@@ -79,7 +82,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="Recording"
-          component={DailySkinScreen}
+          component={Recording}
         />
         <Tab.Screen
           options={{

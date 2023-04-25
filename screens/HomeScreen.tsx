@@ -11,7 +11,6 @@ const HomeScreen = () => {
   const [HealthDataModalVisible, setHealthDataModalVisible] = React.useState(false);
   const [HomeCardInfo, setHomeCardInfo] = React.useState<IHomeCard[]>([]);
 
-
   const fetchData = () => {
     const unsubscribe = onSnapshot(collection(db,"homecards"), (snapshot) => {
       const data: any = snapshot.docs.map((doc) => ({
@@ -35,7 +34,7 @@ const HomeScreen = () => {
       {HomeCardInfo.map((k) => {
         return (
           <View key={k.id}>
-            <Card id={k.id} title={k.title} icon={k.icon} />
+            <Card id={k.id} title={k.title} icon={k.icon} screenName={k.screenName} />
           </View>
         );
       })}

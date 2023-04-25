@@ -7,6 +7,8 @@ export interface IUserProfile {
     id: string,
     type: string;
     description: string;
+    onPress?: () => void;
+    screenName?:string;
 }
 
 export interface ISkinArray {
@@ -19,6 +21,7 @@ export interface IHomeCard {
     id: string
     title: string;
     icon: string;
+    screenName: string;    
 };
 
 export interface IRecordCard {

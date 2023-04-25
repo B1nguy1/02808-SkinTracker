@@ -5,14 +5,14 @@ import { View, Text } from "react-native";
 import { getAuth } from "firebase/auth";
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
-// Playing around with charts
+// TODO: Calculate percentage of each "skin type"
 
 type skinTypes = {
   skinType: string;
   amount: number;
 };
 
-const Test = () => {
+const ConditionOverview = () => {
   const [dataGraph, setDataGraph] = React.useState<Array<skinTypes>>([]);
   const [graphData, setGraphData] = React.useState<Array<skinTypes>>([]);
   const skinCollection = collection(db, "skinData");
@@ -82,4 +82,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default ConditionOverview;

@@ -14,6 +14,7 @@ import UserProfile from "../components/UserProfile";
 import { ISkinArray, IUserSkin } from "../utils/interfaces";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { LoginNavigationProp } from "../utils/navigation.props";
 
 const User = () => {
   const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
@@ -25,7 +26,7 @@ const User = () => {
     orderBy("timeStamp", "desc"),
     limit(1)
   );
-  const navigation = useNavigation();
+  const navigation = useNavigation<LoginNavigationProp>();
 
   const fetchData = () => {
     const unsubscribe = onSnapshot(userQuery, (snapshot) => {

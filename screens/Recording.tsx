@@ -1,7 +1,6 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import RecordCard from "../components/RecordCard";
-import DropDownMenu from "../components/DropDownMenu";
 
 
 // Just fake data used for testing purpose
@@ -43,26 +42,13 @@ const navigateTo = (screenName: string) => {
 }
 */
 
-const data = [
-  {key:'1', value:'Mobiles'},
-  {key:'2', value:'Appliances'},
-  {key:'3', value:'Cameras'},
-  {key:'4', value:'Computers'},
-  {key:'5', value:'Vegetables'},
-  {key:'6', value:'Diary Products'},
-  {key:'7', value:'Drinks'},
-]
-
 
 const Recording = () => {
 
-  const [select,setSelected] = React.useState("");
-
-  console.log(select);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <DropDownMenu data={data} setSelected={val => setSelected(val)} />
+      <Text> WIP </Text>
     </View>
   );
 };
