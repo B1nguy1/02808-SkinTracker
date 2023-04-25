@@ -51,7 +51,7 @@ const ConditionOverview = () => {
           count++;
         }
       });
-       testGraph.push({ skinType: uSkin, amount: count });
+       testGraph.push({ skinType: uSkin, amount: (count/skins.length)*100 });
        setGraphData(testGraph);
 
     });
@@ -60,9 +60,8 @@ const ConditionOverview = () => {
   const updatedGraphData = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
   const tickLabels = updatedGraphData.map((d) => d.x);
   
-
   return (
-    <View style={{backgroundColor:"grey"}}>
+    <View style={{backgroundColor:"lightgrey"}}>
     {updatedGraphData.length > 0 ? (
       <VictoryChart width={350} domainPadding={20} theme={VictoryTheme.material}>
       <VictoryBar
@@ -76,7 +75,7 @@ const ConditionOverview = () => {
         <VictoryAxis dependentAxis/>
       </VictoryChart>
   ):(
-    <></>
+    <Text>Track your skin condition to see the graph! </Text>
   )}
     </View>
   );

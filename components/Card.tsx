@@ -1,26 +1,21 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { IHomeCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { HomeNavigationParamList } from "../navigations/HomeNavigation";
 import { useNavigation } from "@react-navigation/native";
 import { TestNavigationProp } from "../utils/navigation.props";
 
-const Card: React.FC<IHomeCard> = ({ id, title, icon,screenName}) => {
-
+const Card: React.FC<IHomeCard> = ({ id, title, icon, screenName }) => {
   const navigation = useNavigation<TestNavigationProp>();
 
-  if(!navigation){
-    console.log("Does not exist");
-  }
-    const handleTest = (screenName:string) => {
-      if(screenName === "DailySkinScreen"){
-        navigation.navigate(screenName);
-      }
-      console.log("Does not work!")
+  const handleTest = (screenName: string) => {
+    if (screenName === "DailySkinScreen") {
+      navigation.navigate(screenName);
+    } else {
+      Alert.alert(screenName + " does not exist!");
     }
-  
+  };
+
   return (
     <View>
       <TouchableOpacity onPress={() => handleTest(screenName)}>
@@ -43,20 +38,20 @@ const styles = StyleSheet.create({
     height: 140,
     borderColor: "#808080",
     borderWidth: 2,
-    backgroundColor:"#f5cac3",
-    borderRadius:10
+    backgroundColor: "#f5cac3",
+    borderRadius: 10,
   },
-  iconViewStyle:{
-    alignItems:"center",
-    marginTop:20
+  iconViewStyle: {
+    alignItems: "center",
+    marginTop: 20,
   },
-  iconTitleStyle:{
-    color:"black",
-    fontWeight:"bold",
-    fontSize:20,
-    marginLeft:10,
-    marginTop:10
-  }
+  iconTitleStyle: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 20,
+    marginLeft: 10,
+    marginTop: 10,
+  },
 });
 
 export default Card;

@@ -24,6 +24,9 @@ export const HomeNavigation = () => {
         <Stack.Screen
             name="DailySkinScreen"
             component={DailySkinScreen}
+            options={{
+                headerBackTitleVisible:false
+            }}
         />
     </Stack.Navigator>
     );

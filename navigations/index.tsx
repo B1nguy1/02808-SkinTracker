@@ -43,6 +43,12 @@ export const ScreenNavigator = () => {
       <Stack.Screen
         name="ConditionOverview"
         component={ConditionOverview}
+        options={{
+          headerStyle:{
+            backgroundColor: 'white'
+          },
+          headerBackTitleVisible: false
+        }}
       />
     </Stack.Navigator>
   );
