@@ -23,6 +23,14 @@ const Recording = () => {
     setEndDate(currentDate);
   }
 
+  const dateConverter = (startDate:Date,endDate:Date) => {
+    return moment.utc(moment(endDate,"DD/MM/YYYY HH:mm:ss").diff(moment(startDate,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")
+  }
+
+  const testFunction = (date: string) => {
+    return parseInt(date.split(":")[0]) < 8;
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Start date</Text>
@@ -32,6 +40,8 @@ const Recording = () => {
       <Text>{date_format(startDate)}</Text>
       <CalendarComponent modeType={"date"} date={endDate} onChange={onChange2} />
       <CalendarComponent modeType={"time"} date={endDate} onChange={onChange2} />
+      <Text>You have slept in {dateConverter(startDate,endDate)} hours</Text>
+      <Text>{testFunction(dateConverter(startDate,endDate)) ? "You need more sleep": "Well done"}</Text>
       <Text>{date_format(endDate)}</Text>
     </View>
   );
