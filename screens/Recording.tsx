@@ -3,31 +3,50 @@ import { View, Text, Button } from "react-native";
 import moment from "moment";
 import CalendarComponent from "../components/CalendarComponent";
 import { getAuth } from "firebase/auth";
-import { Timestamp, addDoc, collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase";
-import { VictoryAxis, VictoryChart, VictoryLine } from "victory-native";
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLabel,
+  VictoryLine,
+  VictoryTheme,
+} from "victory-native";
 
 interface testRecording {
-  date_from:Timestamp;
+  date_from: Timestamp;
   end_date: Timestamp;
 }
+
+type sleepArray = {
+  date: Date;
+  hoursOfSleep: number;
+};
 
 const Recording = () => {
   const [sleepData, setSleepData] = React.useState<Array<testRecording>>([]);
   const [startDate, setDate] = React.useState(new Date());
+  const [sleepData1, setSleepData1] = React.useState<Array<sleepArray>>([]);
   const [endDate, setEndDate] = React.useState(new Date());
   const userQuery = query(
-    collection(db,"sleepData"),
-    where("userRef", "==", getAuth().currentUser?.uid));
-  
-  
+    collection(db, "sleepData"),
+    where("userRef", "==", getAuth().currentUser?.uid)
+  );
+
   React.useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
 
-  const date_format = (date: Date) => {
-    return moment(date).format("MMMM Do YYYY h:mm:ss a");
-  };
+  React.useEffect(() => {
+    dataForViz();
+  }, [sleepData]);
 
   const fetchData = () => {
     const unsubscribe = onSnapshot(userQuery, (snapshot) => {
@@ -53,65 +72,51 @@ const Recording = () => {
     setEndDate(currentDate);
   };
 
-  const dateConverter = (startDate: Date, endDate: Date) => {
-    return moment
-      .utc(
-        moment(endDate, "DD/MM/YYYY HH:mm:ss").diff(
-          moment(startDate, "DD/MM/YYYY HH:mm:ss")
-        )
-      )
-      .format("HH:mm:ss");
-  };
-
-
   const addSleepData = async () => {
-    try{
-      if (getAuth().currentUser?.uid != null){
-        if(startDate > endDate){
-          console.error("Start cannot be before end")
-        }
-        else{
-          await addDoc(collection(db,"sleepData"),{
+    try {
+      if (getAuth().currentUser?.uid != null) {
+        if (startDate > endDate) {
+          console.error("Start cannot be before end");
+        } else {
+          await addDoc(collection(db, "sleepData"), {
             date_from: startDate,
             end_date: endDate,
-            userRef: getAuth().currentUser?.uid
+            userRef: getAuth().currentUser?.uid,
           });
         }
       }
       setDate(new Date());
       setEndDate(new Date());
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){ console.error(error)}
-  }
+  };
 
   const dataForViz = () => {
-    const data1:{date:Date,hoursOfSleep:number}[] = [];
+    const data1: { date: Date; hoursOfSleep: number }[] = [];
     sleepData.forEach((sleep) => {
       const start = new Date(sleep.date_from.toDate().toUTCString());
       const end = new Date(sleep.end_date.toDate().toUTCString());
-      const timeDiff = ((end.getTime())-(start.getTime()))/1000;
-      const diffDuration = timeDiff/(60*60)
-      data1.push({date: start,hoursOfSleep: Math.abs(Math.round(diffDuration))});
-    })
+      const timeDiff = (end.getTime() - start.getTime()) / 1000;
+      const diffDuration = timeDiff / (60 * 60);
+      data1.push({
+        date: start,
+        hoursOfSleep: Math.abs(Math.round(diffDuration)),
+      });
+      setSleepData1(data1);
+    });
     return data1;
-  }
+  };
 
+  const date_format = (date: Date) => {
+    return moment(date).format("MMMM Do YYYY");
+  };
 
-
-  const data = [
-    { x: new Date(2023, 0, 1), y: 10 },
-    { x: new Date(2023, 0, 2), y: 20 },
-    { x: new Date(2023, 0, 3), y: 15 },
-    { x: new Date(2023, 0, 4), y: 25 },
-    { x: new Date(2023, 0, 5), y: 30 },
-    { x: new Date(2023, 0, 6), y: 28 },
-    { x: new Date(2023, 0, 7), y: 35 }
-  ];
-  
-  const preFix = [
-    { x: 0, y:8}
-  ];
-  
+  const updatedVizData = sleepData1.map(({ date, hoursOfSleep }) => ({
+    x: date_format(date).slice(0, 10),
+    y: hoursOfSleep,
+  }));
+  const tickLabels = updatedVizData.map((d) => d.x);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -138,10 +143,34 @@ const Recording = () => {
         onChange={handleEndDateChange}
       />
       <Button title="ADD" onPress={addSleepData} />
-      <VictoryChart>
-      
-      <VictoryLine data={data} x="x" y="y" />
-      
+      <Text>
+        Current month:{" "}
+        {new Date().toLocaleDateString("en-us", { month: "long" })}
+      </Text>
+      <VictoryChart
+        width={350}
+        domainPadding={20}
+        theme={VictoryTheme.material}
+      >
+        <VictoryLine data={updatedVizData} x="x" y="y" />
+        <VictoryAxis
+          dependentAxis={false}
+          tickLabelComponent={<VictoryLabel angle={-90} y={310} />}
+          tickFormat={tickLabels}
+        />
+        <VictoryAxis dependentAxis />
+        <VictoryLine
+          y={() => 8}
+          samples={1}
+          labels={["", "50%"]}
+          labelComponent={<VictoryLabel renderInPortal={false} dx={20} dy={-20} />}
+        />
+         <VictoryLine
+          y={() => 6}
+          samples={1}
+          labels={["", "50%"]}
+          labelComponent={<VictoryLabel renderInPortal={false} dx={20} dy={-20} />}
+        />
       </VictoryChart>
     </View>
   );
