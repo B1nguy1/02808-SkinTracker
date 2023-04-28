@@ -77,6 +77,14 @@ const Recording = () => {
       if (getAuth().currentUser?.uid != null) {
         if (startDate > endDate) {
           console.error("Start cannot be before end");
+        } else if (
+          sleepData.some(
+            (item) =>
+              startDate.toLocaleString().split(",")[0] ===
+              item.date_from.toDate().toLocaleString().split(",")[0]
+          )
+        ) {
+          console.error("You cannot add for same date!");
         } else {
           await addDoc(collection(db, "sleepData"), {
             date_from: startDate,
@@ -163,13 +171,17 @@ const Recording = () => {
           y={() => 8}
           samples={1}
           labels={["", "50%"]}
-          labelComponent={<VictoryLabel renderInPortal={false} dx={20} dy={-20} />}
+          labelComponent={
+            <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+          }
         />
-         <VictoryLine
+        <VictoryLine
           y={() => 6}
           samples={1}
           labels={["", "50%"]}
-          labelComponent={<VictoryLabel renderInPortal={false} dx={20} dy={-20} />}
+          labelComponent={
+            <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+          }
         />
       </VictoryChart>
     </View>
