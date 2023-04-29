@@ -15,6 +15,7 @@ import { ISkinArray, IUserSkin } from "../utils/interfaces";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { LoginNavigationProp } from "../utils/navigation.props";
+import { FontAwesome } from "@expo/vector-icons";
 
 const User = () => {
   const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
@@ -63,6 +64,10 @@ const User = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{borderWidth:2,margin:10, width:"50%", height:100}}>
+      <Text>{getAuth().currentUser?.email?.split("@")[0]}</Text>
+      <FontAwesome name="user-circle-o" size={50} color="black" />
+      </View>
       {userSkins.length > 0 ? (
         userSkins.map((element) => {
           return (
@@ -114,6 +119,9 @@ const styles = StyleSheet.create({
     marginleft: 10,
     width: 150,
   },
+  textStyle:{
+
+  }
 });
 
 export default User;
