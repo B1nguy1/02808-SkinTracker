@@ -82,7 +82,7 @@ const User = () => {
                         type={skin.type}
                         id={skin.id}
                         description={skin.description}
-                        onPress={() => navigation.navigate("ConditionOverview" as never, {} as never)}
+                        onPress={() => navigation.navigate("VisualizationScreen" as never, {} as never)}
                       />
                     </View>
                   );

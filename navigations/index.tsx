@@ -12,13 +12,14 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import ConditionOverview from "../components/Visualizations/ConditionOverview";
+import VisualizationScreen from "../screens/VisualizationScreen";
 
 
 export type ScreenStackParamList = {
   Login: {};
   Root: undefined;
   DailySkinScreen: {};
-  ConditionOverview: undefined;
+  VisualizationScreen: undefined;
 };
 
 const Stack = createStackNavigator<ScreenStackParamList>();
@@ -41,8 +42,8 @@ export const ScreenNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="ConditionOverview"
-        component={ConditionOverview}
+        name="VisualizationScreen"
+        component={VisualizationScreen}
         options={{
           headerStyle:{
             backgroundColor: 'white'

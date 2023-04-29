@@ -116,15 +116,20 @@ const Recording = () => {
     return data1;
   };
 
-  const date_format = (date: Date) => {
-    return moment(date).format("MMMM Do YYYY");
+  const format_date = (date: Date) => {
+    return moment(date).format("DD/MM/YYYY");
   };
 
-  const updatedVizData = sleepData1.map(({ date, hoursOfSleep }) => ({
-    x: date_format(date).slice(0, 10),
+  // Data for visualization
+  const vizData = sleepData1.map(({ date, hoursOfSleep }) => ({
+    x: format_date(date),
     y: hoursOfSleep,
   }));
-  const tickLabels = updatedVizData.map((d) => d.x);
+
+  const sorted_dates = vizData.sort((a, b) =>
+  a.x.split('/').reverse().join().localeCompare(b.x.split('/').reverse().join()));
+
+  const tickLabels = sorted_dates.map((d) => d.x);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -160,7 +165,7 @@ const Recording = () => {
         domainPadding={20}
         theme={VictoryTheme.material}
       >
-        <VictoryLine data={updatedVizData} x="x" y="y" />
+        <VictoryLine data={sorted_dates} x="x" y="y" />
         <VictoryAxis
           dependentAxis={false}
           tickLabelComponent={<VictoryLabel angle={-90} y={310} />}
