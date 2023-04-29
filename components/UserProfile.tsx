@@ -10,7 +10,9 @@ const UserProfile:React.FC<IUserProfile> = ({type,id,description,onPress}) => {
             <View key={id} style={styles.subContainer}>
                 <Text style={styles.typeTextStyle}>{type}</Text>
                 <Text style={styles.descriptionTextStyle}>{description}</Text>
-                <Button onPress={onPress}>See your stats </Button>
+                <View style={{marginTop:30}}>
+                <Button textColor="white" buttonColor="#d1809d" onPress={onPress}>Visualize your stats </Button>
+                </View>
             </View>
         </View>
     )
@@ -21,13 +23,17 @@ const styles = StyleSheet.create({
         flexDirection:"column",
         alignContent:"center",
         justifyContent:"center",
-        margin:2,
+        margin:20,
     },
     subContainer:{
         borderWidth:2,
         borderColor:"black",
         width:"100%",
-        justifyContent:"space-between"
+        justifyContent:"space-between",
+        padding:10,
+        margin:5,
+        marginTop:10,
+        borderRadius:10,
     },
     typeTextStyle:{
         fontSize:20,

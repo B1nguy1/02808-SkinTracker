@@ -17,7 +17,6 @@ import {
   VictoryLabel,
   VictoryLine,
   VictoryTheme,
-  VictoryTooltip,
 } from "victory-native";
 
 interface testRecording {
@@ -29,6 +28,11 @@ type sleepArray = {
   date: Date;
   hoursOfSleep: number;
 };
+
+type testI = {
+  x: string;
+  y: number;
+}
 
 const SleepOverview = () => {
   const userQuery = query(
@@ -64,14 +68,6 @@ const SleepOverview = () => {
       const end = new Date(sleep.end_date.toDate().toUTCString());
       const timeDiff = (end.getTime() - start.getTime()) / 1000;
       let diffDuration = timeDiff / (60 * 60);
-
-      sleepData.some((item) => {
-        if (item.date_from.toDate().toLocaleString().split(",")[0]) {
-          return diffDuration++;
-        } else {
-          return diffDuration;
-        }
-      });
       data1.push({
         date: start,
         hoursOfSleep: Math.abs(Math.round(diffDuration)),
@@ -81,6 +77,7 @@ const SleepOverview = () => {
     return data1;
   };
 
+ 
   const format_date = (date: Date) => {
     return moment(date).format("DD/MM/YYYY");
   };
@@ -91,30 +88,70 @@ const SleepOverview = () => {
     y: hoursOfSleep,
   }));
 
-  const sorted_dates = vizData.sort((a, b) =>
+  // https://stackoverflow.com/questions/19233283/sum-javascript-object-propertya-values-with-the-same-object-propertyb-in-an-arra
+
+
+  const Holder: { [key: string]: number } = {};
+
+  vizData.forEach((d) => {
+    if (Holder.hasOwnProperty(d.x)) {
+      Holder[d.x] = Holder[d.x] + d.y;
+    } else {
+      Holder[d.x] = d.y;
+    }
+  });
+  
+  const obj2: testI[] = [];
+  
+  for (const prop in Holder) {
+    obj2.push({ x: prop, y: Holder[prop] });
+  }
+
+
+  const sorted_dates = obj2.sort((a, b) =>
     a.x
       .split("/")
       .reverse()
       .join()
       .localeCompare(b.x.split("/").reverse().join())
   );
-  const tickLabels = sorted_dates.map((d) => d.x);
+  const tickLabels = obj2.map((d) => d.x);
 
   return (
-    <View style={{backgroundColor:"grey", flex:1, justifyContent:"center",marginTop:10,}}>
+    <View
+      style={{
+        backgroundColor: "lightgrey",
+        flex: 1,
+        justifyContent: "center",
+        marginTop: 10,
+      }}
+    >
       <Text>
         Current month:{" "}
         {new Date().toLocaleDateString("en-us", { month: "long" })}
       </Text>
-      <VictoryChart
-        width={350}
-        domainPadding={20}
-        theme={VictoryTheme.material}
-      >
+      <VictoryChart width={350} domainPadding={20}>
+        <VictoryBar
+          labels={({ datum }) => `Hour: ${datum.y}`}
+          data={obj2}
+          style={{ labels: { fill: "white" } }}
+          x="x"
+          y="y"
+        />
+        <VictoryAxis
+          dependentAxis={false}
+          tickLabelComponent={<VictoryLabel angle={-45} y={263} />}
+          tickFormat={tickLabels}
+        />
+        <VictoryAxis dependentAxis />
         <VictoryLine
           y={() => 8}
           samples={1}
           labels={["", "50%"]}
+          style={{
+            data: { stroke: "red" },
+            parent: { border: "1px solid #ccc" },
+          }}
           labelComponent={
             <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
           }
@@ -122,23 +159,15 @@ const SleepOverview = () => {
         <VictoryLine
           y={() => 6}
           samples={1}
+          style={{
+            data: { stroke: "red" },
+            parent: { border: "1px solid #ccc" },
+          }}
           labels={["", "50%"]}
           labelComponent={
             <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
           }
         />
-        <VictoryBar
-          labels={({ datum }) => `Hour: ${datum.y}`}
-          data={sorted_dates}
-          x="x"
-          y="y"
-        />
-        <VictoryAxis
-          dependentAxis={false}
-          tickLabelComponent={<VictoryLabel angle={-45} y={310} />}
-          tickFormat={tickLabels}
-        />
-        <VictoryAxis dependentAxis />
       </VictoryChart>
     </View>
   );

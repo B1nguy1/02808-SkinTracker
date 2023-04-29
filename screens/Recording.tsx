@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import CalendarComponent from "../components/CalendarComponent";
 import { getAuth } from "firebase/auth";
@@ -23,12 +23,19 @@ const Recording = () => {
     setEndDate(currentDate);
   };
 
+
+
+
+
   const addSleepData = async () => {
     try {
       if (getAuth().currentUser?.uid != null) {
         if (startDate > endDate) {
-          console.error("Start cannot be before end");
-        } 
+          Alert.alert("Start cannot be before end");
+        }
+        else if(startDate > new Date()) {
+          Alert.alert("You cannot track sleep data in advance")
+        }
         else {
           await addDoc(collection(db, "sleepData"), {
             date_from: startDate,

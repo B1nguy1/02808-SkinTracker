@@ -21,6 +21,7 @@ const User = () => {
   const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
   const [skins, setSkins] = React.useState<Array<ISkinArray>>([]);
   const skinDataRef = collection(db, "skinData");
+  const userName = getAuth().currentUser?.email?.split("@")[0]
   const userQuery = query(
     skinDataRef,
     where("userRef", "==", getAuth().currentUser?.uid),
@@ -64,9 +65,11 @@ const User = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View style={{borderWidth:2,margin:10, width:"50%", height:100}}>
-      <Text>{getAuth().currentUser?.email?.split("@")[0]}</Text>
+      <View style={styles.textStyle}>
       <FontAwesome name="user-circle-o" size={50} color="black" />
+      <View style={{marginTop:15}}>
+      <Text style={styles.textStyle2}>{userName ? userName.charAt(0).toUpperCase() + userName.slice(1) : null}</Text>
+      </View>
       </View>
       {userSkins.length > 0 ? (
         userSkins.map((element) => {
@@ -120,7 +123,17 @@ const styles = StyleSheet.create({
     width: 150,
   },
   textStyle:{
-
+      alignItems: "center",
+      marginTop: 20,
+      flexDirection: "column",
+      justifyContent: "space-around",
+      width: "50%",
+      marginBottom: 20,
+  },
+  textStyle2:{
+    fontSize:30,
+    fontWeight:"bold",
+    color:"#FF75A7",
   }
 });
 
