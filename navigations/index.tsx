@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import Recording from "../screens/Recording";
 import User from "../screens/User";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,8 +10,8 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import ConditionOverview from "../components/Visualizations/ConditionOverview";
 import VisualizationScreen from "../screens/VisualizationScreen";
+import { RecordingNavigation } from "./RecordingNavigation";
 
 
 export type ScreenStackParamList = {
@@ -89,7 +88,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="Recording"
-          component={Recording}
+          component={RecordingNavigation}
         />
         <Tab.Screen
           options={{

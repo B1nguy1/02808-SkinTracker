@@ -8,7 +8,7 @@ export type HomeNavigationParamList = {
     DailySkinScreen: undefined;
 }
 
-const Stack = createStackNavigator<HomeNavigationParamList>()
+const Stack = createStackNavigator<HomeNavigationParamList>();
 
 export const HomeNavigation = () => {
     return(
