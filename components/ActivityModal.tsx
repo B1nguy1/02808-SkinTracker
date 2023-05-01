@@ -68,7 +68,6 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
               <View>
                 <Pressable
                   onPress={() => {
-                    Alert.alert("Activity tracked!")
                     props.save();
                   }}
                 >

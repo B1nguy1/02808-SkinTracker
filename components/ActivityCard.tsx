@@ -3,44 +3,69 @@ import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { IRecordCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
 import ActivityModal from "./ActivityModal";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
+import { getAuth } from "firebase/auth";
 
 const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
-  const [HealthDataModalVisible, setHealthDataModalVisible] =
+  
+  const [ActivityModalVisible, setActivityModalVisible] =
     React.useState(false);
+  const activityDataRef = collection(db, "activityData");
   const [activityDate, setActivityDate] = React.useState(new Date());
   const [activityHour, setActivityHour] = React.useState(0);
+  const userID = getAuth().currentUser?.uid;
 
   const handleDateChange = (event: any, selectedDate?: Date | undefined) => {
     const currentDate = selectedDate || activityDate;
     setActivityDate(currentDate);
   };
 
-  const activityCalories = (activity: string,hour:number) => {
+  const activityCalories = (activity: string, hour: number) => {
     let caloriesBurnt;
-    switch(activity){
-        case "Jogging":
-            caloriesBurnt = 436*hour;
-            break;
-        case "Riding":
-            caloriesBurnt = 626*hour;
-            break;
-        case "Yoga":
-            caloriesBurnt=120*hour;
-            break;
-        default:
-            caloriesBurnt = 0;
-            break;
-    };
+    switch (activity) {
+      case "Jogging":
+        caloriesBurnt = 436 * hour;
+        break;
+      case "Riding":
+        caloriesBurnt = 626 * hour;
+        break;
+      case "Yoga":
+        caloriesBurnt = 120 * hour;
+        break;
+      default:
+        caloriesBurnt = 0;
+        break;
+    }
     return caloriesBurnt;
-  }
+  };
 
-  
+  const addActivityToFirebase = async () => {
+    try {
+      if (userID != null  && activityDate < new Date()) {
+        await addDoc(activityDataRef, {
+          activity_name: rcTitle,
+          activity_date: activityDate,
+          activity_hour: activityCalories(rcTitle, activityHour),
+          userRef: userID,
+        });
+        setActivityDate(new Date()), setActivityHour(0);
+        Alert.alert("Thanks for tracking!");
+      }
+      else{
+        Alert.alert("Cannot track in advance...")
+      }
+    } catch (error) {
+      console.error(error);
+    };
+  };
+
   return (
     <View style={styles.cardStyle}>
       <View key={rcId}>
         <TouchableOpacity
           onPress={() => {
-            setHealthDataModalVisible(true);
+            setActivityModalVisible(true);
           }}
           style={{ width: 350 }}
         >
@@ -49,14 +74,14 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
           </View>
           <Text style={styles.cardTextStyle}>{rcTitle}</Text>
           <ActivityModal
-                      setVisible={() => setHealthDataModalVisible(false)}
-                      visible={HealthDataModalVisible}
-                      activityHour={activityHour}
-                      setActivityHour={(hour) => setActivityHour(hour)}
-                      activityDate={activityDate}
-                      handleDateChange={handleDateChange} 
-                      save={() =>  console.log(activityCalories(rcTitle,activityHour))}
-            />
+            setVisible={() => setActivityModalVisible(false)}
+            visible={ActivityModalVisible}
+            activityHour={activityHour}
+            setActivityHour={(hour) => setActivityHour(hour)}
+            activityDate={activityDate}
+            handleDateChange={handleDateChange}
+            save={() => addActivityToFirebase()}
+          />
         </TouchableOpacity>
       </View>
     </View>
