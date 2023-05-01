@@ -8,7 +8,7 @@ import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 
 const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
-  
+
   const [ActivityModalVisible, setActivityModalVisible] =
     React.useState(false);
   const activityDataRef = collection(db, "activityData");
@@ -46,7 +46,8 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
         await addDoc(activityDataRef, {
           activity_name: rcTitle,
           activity_date: activityDate,
-          activity_hour: activityCalories(rcTitle, activityHour),
+          activity_calories: activityCalories(rcTitle, activityHour),
+          activity_hour: activityHour,
           userRef: userID,
         });
         setActivityDate(new Date()), setActivityHour(0);

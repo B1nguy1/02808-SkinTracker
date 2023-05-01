@@ -28,10 +28,35 @@ type sleepArray = {
   hoursOfSleep: number;
 };
 
-type testI = {
+export type testI = {
   x: string;
   y: number;
 }
+
+export const format_date = (date: Date) => {
+  return moment(date).format("DD/MM/YYYY");
+};
+
+  /*
+  Inspiration:
+  https://stackoverflow.com/questions/19233283/sum-javascript-object-propertya-values-with-the-same-object-propertyb-in-an-arra
+  */
+export const updateData = (dataList:any,dataObject:{[key:string]:number}) => {
+  dataList.forEach((d:any) => {
+    if(dataObject.hasOwnProperty(d.x)){
+      dataObject[d.x] = dataObject[d.x]+ d.y
+    }
+    else{
+      dataList[d.x] = d.y
+    }
+  })
+  const updated_dataList:testI[] =[];
+  for (const prop in dataObject){
+    updated_dataList.push({ x: prop, y: dataObject[prop]})
+  }
+  return updated_dataList;
+}
+
 
 const SleepOverview = () => {
   const userQuery = query(
@@ -76,37 +101,15 @@ const SleepOverview = () => {
     return data1;
   };
 
- 
-  const format_date = (date: Date) => {
-    return moment(date).format("DD/MM/YYYY");
-  };
-
   // Data for visualization
   const vizData = sleepData1.map(({ date, hoursOfSleep }) => ({
     x: format_date(date),
     y: hoursOfSleep,
   }));
 
-  /*
-  Inspiration:
-  https://stackoverflow.com/questions/19233283/sum-javascript-object-propertya-values-with-the-same-object-propertyb-in-an-arra
-  */
   const vizDataObject: { [key: string]: number } = {};
 
-  vizData.forEach((d) => {
-    if (vizDataObject.hasOwnProperty(d.x)) {
-      vizDataObject[d.x] = vizDataObject[d.x] + d.y;
-    } else {
-      vizDataObject[d.x] = d.y;
-    }
-  });
-  
-  const newVizData: testI[] = [];
-
-  for (const prop in vizDataObject) {
-    newVizData.push({ x: prop, y: vizDataObject[prop] });
-  }
-
+  const newVizData = updateData(vizData,vizDataObject);
 
   const sorted_dates = newVizData.sort((a, b) =>
     a.x
