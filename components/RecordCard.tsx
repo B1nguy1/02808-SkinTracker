@@ -3,30 +3,14 @@ import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { IRecordCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { RecordingNavigationProp } from "../utils/navigation.props";
 
 
-const RecordCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
-  
-  const navigation = useNavigation<RecordingNavigationProp>();
-  
-  const navigateTo = (screenName: string) => {
-    if (screenName === "Sleep") {
-      navigation.navigate("SleepTracking");
-    } 
-    else if(screenName === "Skin condition"){
-      navigation.navigate("DailySkinScreen");
-    }
-    else {
-      Alert.alert(screenName + " does not exist!");
-    }
-  };
-  
+const RecordCard = ({ rcId, rcTitle, rcIcon,onPress }: IRecordCard): JSX.Element => {
+    
   return (
     <View style={styles.cardStyle}>
       <View>
-        <TouchableOpacity onPress={() => navigateTo(rcTitle)} key={rcId.toString()} style={{width:350}}>
+        <TouchableOpacity onPress={onPress} style={{width:350}}>
           <View style={{position:"absolute",left:2, marginTop:20}}>
           <HandleIconType iconName={rcIcon} size={34} />
           </View>

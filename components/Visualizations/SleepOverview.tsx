@@ -16,7 +16,6 @@ import {
   VictoryChart,
   VictoryLabel,
   VictoryLine,
-  VictoryTheme,
 } from "victory-native";
 
 interface testRecording {
@@ -88,34 +87,35 @@ const SleepOverview = () => {
     y: hoursOfSleep,
   }));
 
-  // https://stackoverflow.com/questions/19233283/sum-javascript-object-propertya-values-with-the-same-object-propertyb-in-an-arra
-
-
-  const Holder: { [key: string]: number } = {};
+  /*
+  Inspiration:
+  https://stackoverflow.com/questions/19233283/sum-javascript-object-propertya-values-with-the-same-object-propertyb-in-an-arra
+  */
+  const vizDataObject: { [key: string]: number } = {};
 
   vizData.forEach((d) => {
-    if (Holder.hasOwnProperty(d.x)) {
-      Holder[d.x] = Holder[d.x] + d.y;
+    if (vizDataObject.hasOwnProperty(d.x)) {
+      vizDataObject[d.x] = vizDataObject[d.x] + d.y;
     } else {
-      Holder[d.x] = d.y;
+      vizDataObject[d.x] = d.y;
     }
   });
   
-  const obj2: testI[] = [];
-  
-  for (const prop in Holder) {
-    obj2.push({ x: prop, y: Holder[prop] });
+  const newVizData: testI[] = [];
+
+  for (const prop in vizDataObject) {
+    newVizData.push({ x: prop, y: vizDataObject[prop] });
   }
 
 
-  const sorted_dates = obj2.sort((a, b) =>
+  const sorted_dates = newVizData.sort((a, b) =>
     a.x
       .split("/")
       .reverse()
       .join()
       .localeCompare(b.x.split("/").reverse().join())
   );
-  const tickLabels = obj2.map((d) => d.x);
+  const tickLabels = newVizData.map((d) => d.x);
 
   return (
     <View
@@ -133,7 +133,7 @@ const SleepOverview = () => {
       <VictoryChart width={350} domainPadding={20}>
         <VictoryBar
           labels={({ datum }) => `Hour: ${datum.y}`}
-          data={obj2}
+          data={sorted_dates}
           style={{ labels: { fill: "white" } }}
           x="x"
           y="y"

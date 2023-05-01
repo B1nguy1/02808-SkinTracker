@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import RecordCard from "../components/RecordCard";
 import { useNavigation } from "@react-navigation/native";
-import { TestNavigationProp } from "../utils/navigation.props";
+import { RecordingNavigationProp, TestNavigationProp } from "../utils/navigation.props";
 
 export const getCardInfo: { cardId: number; cardTitle: string; cardIcon: string }[] = [
   {
@@ -24,6 +24,23 @@ export const getCardInfo: { cardId: number; cardTitle: string; cardIcon: string 
 ]
 
 const Recording = () => {
+  
+  const navigation = useNavigation<RecordingNavigationProp>();
+  
+  const navigateTo = (screenName: string) => {
+    if (screenName === "Sleep") {
+      navigation.navigate("SleepTracking");
+    } 
+    else if(screenName === "Skin condition"){
+      navigation.navigate("DailySkinScreen");
+    }
+    else if(screenName === "Fitness record"){
+      navigation.navigate("ActivityScreen");
+    }
+    else {
+      Alert.alert(screenName + " does not exist!");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +51,7 @@ const Recording = () => {
         return (
           <View id={prop.cardId.toString()}>
             <RecordCard
-              onPress={() => console.log("Test")}
+              onPress={() => navigateTo(prop.cardTitle)}
               rcId={prop.cardId}
               rcTitle={prop.cardTitle}
               rcIcon={prop.cardIcon}
