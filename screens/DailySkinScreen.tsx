@@ -29,7 +29,7 @@ const DailySkinScreen = () => {
           userRef: userID,
         });
         setSkinValue("");
-        Alert.alert("Thanks for tracking!");
+        Alert.alert("Skin type saved!");
       }
     } catch (error) {
       console.error(error);

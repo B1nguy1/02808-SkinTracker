@@ -51,7 +51,7 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
           userRef: userID,
         });
         setActivityDate(new Date()), setActivityHour(0);
-        Alert.alert("Thanks for tracking!");
+        Alert.alert("Activity saved!");
       }
       else{
         Alert.alert("Cannot track in advance...")

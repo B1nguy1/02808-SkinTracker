@@ -29,6 +29,7 @@ export const HandleIconType: React.FC<IconProps> = (props) => {
             break;
         case "yoga":
             Icon = <MaterialCommunityIcons name="yoga" size={24} color="black" />
+            break;
         default:
             Icon = <MaterialIcons name="error" size={24} color="black" />
             break;

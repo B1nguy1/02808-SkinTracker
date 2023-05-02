@@ -22,20 +22,54 @@ export const RecordingNavigation = () => {
                 component={Recording}
                 options={{
                     headerShown:false,
+                    headerBackTitleVisible:false
                 }}
             />
             <Stack.Screen
                 name="DailySkinScreen"
                 component={DailySkinScreen}
+                options={{
+                    headerTitle:"Skin condition tracking",
+                    headerBackTitleVisible:false,
+                    
+                    headerStyle:{
+                        backgroundColor:"lightgrey"
+                    },
+                    headerTitleStyle:{
+                        color:"white"
+                    }
+                }}
             />
 
             <Stack.Screen
                 name="SleepTracking"
                 component={SleepTrackingScreen}
+                options={{
+                    headerTitle:"Sleep tracking",
+                    headerBackTitleVisible:false,
+                    
+                    headerStyle:{
+                        backgroundColor:"lightgrey"
+                    },
+                    headerTitleStyle:{
+                        color:"white"
+                    }
+                }}
             />
             <Stack.Screen 
                 name="ActivityScreen"
                 component={ActivityScreen}
+                options={{
+                    headerTitle:"Activity tracking",
+                    headerBackTitleVisible:false,
+                    
+                    headerStyle:{
+                        backgroundColor:"lightgrey"
+                    },
+                    headerTitleStyle:{
+                        color:"white"
+                    }
+                }}
             />
         </Stack.Navigator>
     )
