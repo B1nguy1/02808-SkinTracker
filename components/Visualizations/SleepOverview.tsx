@@ -153,7 +153,7 @@ const SleepOverview = () => {
           }
         />
         <VictoryLine
-          y={() => 6}
+          y={() => 7}
           samples={1}
           style={{
             data: { stroke: "red" },
