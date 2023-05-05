@@ -29,14 +29,15 @@ export const RecordingNavigation = () => {
                 name="DailySkinScreen"
                 component={DailySkinScreen}
                 options={{
-                    headerTitle:"Skin condition tracking",
+                    headerTitle:"Daily skin",
                     headerBackTitleVisible:false,
                     
                     headerStyle:{
-                        backgroundColor:"lightgrey"
+                        backgroundColor:"white"
                     },
                     headerTitleStyle:{
-                        color:"white"
+                        color:"#FF75A7",
+                        fontSize:23,
                     }
                 }}
             />
@@ -47,12 +48,13 @@ export const RecordingNavigation = () => {
                 options={{
                     headerTitle:"Sleep tracking",
                     headerBackTitleVisible:false,
-                    
+                    headerTintColor:"grey",
                     headerStyle:{
-                        backgroundColor:"lightgrey"
+                        backgroundColor:"white"
                     },
                     headerTitleStyle:{
-                        color:"white"
+                        color:"#FF75A7",
+                        fontSize:23,
                     }
                 }}
             />
@@ -62,12 +64,13 @@ export const RecordingNavigation = () => {
                 options={{
                     headerTitle:"Activity tracking",
                     headerBackTitleVisible:false,
-                    
+                    headerTintColor:"grey",
                     headerStyle:{
-                        backgroundColor:"lightgrey"
+                        backgroundColor:"white"
                     },
                     headerTitleStyle:{
-                        color:"white"
+                        color:"#FF757A",
+                        fontSize:23,
                     }
                 }}
             />

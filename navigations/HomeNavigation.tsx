@@ -26,9 +26,14 @@ export const HomeNavigation = () => {
             component={DailySkinScreen}
             options={{
                 headerBackTitleVisible:false,
-                headerTitle:"",
+                headerTitle:"Daily skin",
+                headerTintColor:"grey",
                 headerStyle:{
-                    backgroundColor:"lightgrey"
+                    backgroundColor:"white"
+                },
+                headerTitleStyle:{
+                     color:"#FF75A7",
+                     fontSize:23,
                 }
             }}
         />

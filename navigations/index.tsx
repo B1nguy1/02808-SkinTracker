@@ -44,12 +44,14 @@ export const ScreenNavigator = () => {
         name="VisualizationScreen"
         component={VisualizationScreen}
         options={{
-          headerTitle:"Visualizations",
+          headerTitle:"Health profile",
+          headerTintColor:"grey",
           headerStyle:{
-            backgroundColor: 'lightgrey'
+            backgroundColor: 'white'
           },
           headerTitleStyle:{
-            color:"white",
+            color:"#FF75A7",
+            fontSize:25,
           },
           headerBackTitleVisible: false
         }}

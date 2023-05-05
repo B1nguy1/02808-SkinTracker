@@ -49,7 +49,7 @@ const Recording = () => {
     </View>
     {getCardInfo.map((prop) => {
         return (
-          <View id={prop.cardId.toString()}>
+          <View key={prop.cardId.toString()}>
             <RecordCard
               onPress={() => navigateTo(prop.cardTitle)}
               rcId={prop.cardId}
