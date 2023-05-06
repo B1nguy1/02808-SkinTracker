@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, StatusBar, View, Text } from "react-native";
 import ConditionOverview from "../components/Visualizations/ConditionOverview";
 import SleepOverview from "../components/Visualizations/SleepOverview";
+import ActivityOverview from "../components/Visualizations/ActivityOverview";
 
 const VisualizationScreen = () => {
     return (
@@ -16,6 +17,9 @@ const VisualizationScreen = () => {
             </View>
             <View style={{marginHorizontal: 20,marginTop:20}}>
                 <SleepOverview />
+            </View>
+            <View style={{marginHorizontal: 20,marginTop:20}}>
+                <ActivityOverview />
             </View>
         </ScrollView>
     )
