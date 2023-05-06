@@ -13,8 +13,6 @@ const VisualizationScreen = () => {
                 <ConditionOverview />
             </View>
             <View style={{marginHorizontal: 20,marginTop:10}}>
-                <Text style={{fontWeight:"bold"}}>Sleep</Text>
-                <Text>You don't get optimum number of hours of sleep. It is recommended to get at 7-8 hours of sleep </Text>
             </View>
             <View style={{marginHorizontal: 20,marginTop:20}}>
                 <SleepOverview />

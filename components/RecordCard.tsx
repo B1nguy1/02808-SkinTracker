@@ -10,7 +10,7 @@ const RecordCard = ({ rcId, rcTitle, rcIcon,onPress }: IRecordCard): JSX.Element
   return (
     <View style={styles.cardStyle}>
       <View>
-        <TouchableOpacity onPress={onPress} style={{width:350}}>
+        <TouchableOpacity key={rcId} onPress={onPress} style={{width:350}}>
           <View style={{position:"absolute",left:2, marginTop:20}}>
           <HandleIconType iconName={rcIcon} size={34} />
           </View>
