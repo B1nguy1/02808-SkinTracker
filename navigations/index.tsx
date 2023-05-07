@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import User from "../screens/User";
+import UserScreen from "../screens/UserScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
@@ -103,7 +103,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="User"
-          component={User}
+          component={UserScreen}
         />
       </Tab.Navigator>
     </SafeAreaProvider>

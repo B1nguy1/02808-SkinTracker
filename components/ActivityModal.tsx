@@ -1,9 +1,7 @@
 import React from "react";
-import { Modal, View, Text, Pressable, StyleSheet, Alert } from "react-native";
+import { Modal, View, Text, Pressable, StyleSheet } from "react-native";
 import InputSpinner from "react-native-input-spinner";
-import { TextInput } from "react-native-paper";
 import CalendarComponent from "./CalendarComponent";
-import DropDownMenu from "./DropDownMenu";
 
 interface IActivityModal {
   setVisible: () => void;
@@ -15,10 +13,7 @@ interface IActivityModal {
   save: () => void;
 }
 
-
 const ActivityModal: React.FC<IActivityModal> = (props) => {
-
-  
 
   return (
     <View style={styles.container}>

@@ -85,7 +85,7 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
             setVisible={() => setActivityModalVisible(false)}
             visible={ActivityModalVisible}
             activityHour={activityHour}
-            setActivityHour={(hour) => setActivityHour(hour)}
+            setActivityHour={(hour) => hour > 0 ? setActivityHour(hour) : Alert.alert("Hour(s) cannot be negative!")}
             activityDate={activityDate}
             handleDateChange={handleDateChange}
             save={() => addActivityToFirebase()}

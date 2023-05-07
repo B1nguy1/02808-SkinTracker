@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LoginNavigationProp } from "../utils/navigation.props";
 import { FontAwesome } from "@expo/vector-icons";
 
-const User = () => {
+const UserScreen = () => {
   const [userSkins, setuserSkins] = React.useState<Array<IUserSkin>>([]);
   const [skins, setSkins] = React.useState<Array<ISkinArray>>([]);
   const skinDataRef = collection(db, "skinData");
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default User;
+export default UserScreen;
