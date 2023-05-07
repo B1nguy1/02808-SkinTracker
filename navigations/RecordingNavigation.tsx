@@ -6,7 +6,7 @@ import DailySkinScreen from "../screens/DailySkinScreen";
 import ActivityScreen from "../screens/ActivityScreen";
 
 export type RecordingNavigationParamList = {
-    Recording: {};
+    RecordingScreen: {};
     SleepTracking:undefined;
     DailySkinScreen:undefined;
     ActivityScreen:undefined;
@@ -18,7 +18,7 @@ export const RecordingNavigation = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name="Recording"
+                name="RecordingScreen"
                 component={Recording}
                 options={{
                     headerShown:false,
@@ -30,13 +30,14 @@ export const RecordingNavigation = () => {
                 component={DailySkinScreen}
                 options={{
                     headerTitle:"Daily skin",
+                    headerTintColor:"grey",
                     headerBackTitleVisible:false,
                     
                     headerStyle:{
                         backgroundColor:"white"
                     },
                     headerTitleStyle:{
-                        color:"#FF75A7",
+                        color:"#FF757A",
                         fontSize:23,
                     }
                 }}
@@ -53,7 +54,7 @@ export const RecordingNavigation = () => {
                         backgroundColor:"white"
                     },
                     headerTitleStyle:{
-                        color:"#FF75A7",
+                        color:"#FF757A",
                         fontSize:23,
                     }
                 }}

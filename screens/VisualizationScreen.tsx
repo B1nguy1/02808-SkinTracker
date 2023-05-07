@@ -11,7 +11,7 @@ const VisualizationScreen = () => {
                 <View>
                 <Text style={{marginTop:10,marginBottom:10,fontWeight:"bold"}}>Skin type overview</Text>
                 </View>
-                <ConditionOverview />
+                <ActivityOverview />
             </View>
             <View style={{marginHorizontal: 20,marginTop:10}}>
             </View>
@@ -19,7 +19,7 @@ const VisualizationScreen = () => {
                 <SleepOverview />
             </View>
             <View style={{marginHorizontal: 20,marginTop:20}}>
-                <ActivityOverview />
+                <ConditionOverview />
             </View>
         </ScrollView>
     )

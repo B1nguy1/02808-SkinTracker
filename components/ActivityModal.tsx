@@ -48,7 +48,7 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
                 />
               </View>
               <View style={{flexDirection:"row",alignItems:"center"}}>
-              <Text style={{ fontSize: 15,marginLeft:10 }}>Activity Date: </Text>
+              <Text style={{ fontSize: 15,marginLeft:10 }}>Activity date: </Text>
               <CalendarComponent 
                 modeType={"date"}
                 date={props.activityDate}
@@ -58,8 +58,8 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
             </View>
             <View style={styles.buttonContainer}>
               <View>
-                <Pressable onPress={() => props.setVisible()}>
-                  <Text style={{ color: "red", fontSize: 15, marginRight: 20 }}>
+                <Pressable style={styles.cancelButtonStyle} onPress={() => props.setVisible()}>
+                  <Text style={styles.cancelTextStyle}>
                     {" "}
                     CANCEL{" "}
                   </Text>
@@ -67,11 +67,12 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
               </View>
               <View>
                 <Pressable
+                  style={styles.saveButtonStyle}
                   onPress={() => {
                     props.save();
                   }}
                 >
-                  <Text style={{ color: "#2194FF", fontSize: 15 }}>
+                  <Text style={styles.saveTextColor}>
                     SAVE ACTIVITY
                   </Text>
                 </Pressable>
@@ -112,7 +113,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    marginLeft:10
   },
+  saveButtonStyle:{
+    backgroundColor:"#FF757A",
+    borderRadius:5,
+    padding:5,
+  },
+  saveTextColor:{
+    color:"black",
+    fontSize:15
+  },
+  cancelButtonStyle:{
+    backgroundColor:"red",
+    borderRadius:5,
+    padding:5,
+    marginRight:10,
+  },
+  cancelTextStyle:{
+    color:"black",
+    fontSize:15
+  }
 });
 
 export default ActivityModal;

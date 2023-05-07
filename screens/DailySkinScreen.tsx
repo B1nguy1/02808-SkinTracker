@@ -4,21 +4,32 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import DropDownMenu from "../components/DropDownMenu";
 import { db } from "../firebase";
+import { skinConditionsData } from "../utils/DropDownMenuData";
 
-export const skinConditionsData = [
-  { key: "1", value: "Normal skin" },
-  { key: "2", value: "Sensitive skin" },
-  { key: "3", value: "Dry skin" },
-  { key: "4", value: "Oily skin" },
-  { key: "5", value: "Scaly skin" },
-  { key: "6", value: "Red spots" },
-  { key: "7", value: "Skin moles" },
-];
 
 const DailySkinScreen = () => {
   const [skinValue, setSkinValue] = React.useState("");
   const SkinDataRef = collection(db, "skinData");
   const userID = getAuth().currentUser?.uid;
+
+  function assignScoreToValue(value: string){
+    let score;
+    switch(value){
+      case "Mild":
+        score = 1;
+        break;
+      case "Moderate":
+        score = 2;
+        break;
+      case "Severe":
+        score = 3;
+        break;
+      default:
+        score = 0;
+        break;
+    }
+    return score;
+  }
 
   const addSkinType = async () => {
     try {

@@ -21,6 +21,8 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
     setActivityDate(currentDate);
   };
 
+  
+  // Tracks calories burnt based on the chosen activity
   const activityCalories = (activity: string, hour: number) => {
     let caloriesBurnt;
     switch (activity) {
@@ -40,6 +42,11 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
     return caloriesBurnt;
   };
 
+  /*
+  Adds an activity object to the database
+  If the user does not exist or the date is tracked in advance,
+  then it will fail. 
+  */
   const addActivityToFirebase = async () => {
     try {
       if (userID != null  && activityDate < new Date()) {

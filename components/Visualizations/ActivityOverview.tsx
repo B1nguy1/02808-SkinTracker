@@ -10,6 +10,7 @@ import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
 import moment from "moment";
 import { View, Text } from "react-native";
+import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from "victory-native";
 
 interface IActivityData {
   activity_date: Timestamp;
@@ -88,17 +89,57 @@ const ActivityOverview = () => {
       .join()
       .localeCompare(b.x.split("/").reverse().join())
   );
+  
+  const tickLabels = newActivityDataList.map((d) => d.x)
 
   return (
     <View>
-      {newActivityDataList.map((item, index) => {
-        return (
-          <View key={index}>
-            <Text>{item.x}</Text>
-            <Text>{item.y}</Text>
-          </View>
-        );
-      })}
+      <Text>Overview of fitness data</Text>
+      <View>
+        <VictoryChart width={350} domainPadding={20}>
+          <VictoryLine
+            y={() => 2500}
+            samples={1}
+            labels={["", "50%"]}
+            style={{
+              data: { stroke: "red" },
+              parent: { border: "1px solid #ccc" },
+            }}
+            labelComponent={
+              <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+            }
+          />
+          <VictoryLine
+            y={() => 2000}
+            samples={1}
+            style={{
+              data: { stroke: "red" },
+              parent: { border: "1px solid #ccc" },
+            }}
+            labels={["", "50%"]}
+            labelComponent={
+              <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+            }
+          />
+          <VictoryLine
+            data={sortedDates}
+            style = {{ labels: { fill: "white"}}}
+            x="x"
+            y="y"
+          />
+           <VictoryScatter 
+            style={{ data: { fill: "#c43a31" } }}
+            size={3}
+            data={sortedDates}
+           />
+          <VictoryAxis
+            dependentAxis={false}
+            tickLabelComponent={<VictoryLabel angle={-90} y={263} />}
+            tickFormat={tickLabels}
+          />
+          <VictoryAxis dependentAxis />
+        </VictoryChart>
+      </View>
     </View>
   );
 };
