@@ -13,8 +13,8 @@ import { getAuth, signOut } from "firebase/auth";
 import UserProfile from "../components/UserProfile";
 import { ISkinArray, IUserSkin } from "../utils/interfaces";
 import { Button } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { LoginNavigationProp } from "../utils/navigation.props";
+import { NavigationHelpersContext, useNavigation } from "@react-navigation/native";
+import { LoginNavigationProp, UserNavigationProp } from "../utils/navigation.props";
 import { FontAwesome } from "@expo/vector-icons";
 
 const UserScreen = () => {
@@ -30,7 +30,7 @@ const UserScreen = () => {
   );
 
 
-  const navigation = useNavigation<LoginNavigationProp>();
+  const navigation = useNavigation<LoginNavigationProp & UserNavigationProp>();
 
   const fetchData = () => {
     const unsubscribe = onSnapshot(userQuery, (snapshot) => {
@@ -72,6 +72,15 @@ const UserScreen = () => {
       <FontAwesome name="user-circle-o" size={50} color="black" />
       <View style={{marginTop:10}}>
       <Text style={styles.textStyle2}>{userName ? userName.charAt(0).toUpperCase() + userName.slice(1) : null}</Text>
+      </View>
+      <View style={styles.signOutButtonStyle}>
+      <Button
+          textColor="white"
+          buttonColor="#FF75A7"
+          onPress={() => navigation.navigate("SleepList" as never,{} as never)}
+        >
+          View my data
+        </Button>
       </View>
       </View>
       {userSkins.length > 0 ? (

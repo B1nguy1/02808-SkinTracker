@@ -12,13 +12,13 @@ import {
 } from "@expo/vector-icons";
 import VisualizationScreen from "../screens/VisualizationScreen";
 import { RecordingNavigation } from "./RecordingNavigation";
+import { UserNavigation } from "./UserNavigation";
 
 
 export type ScreenStackParamList = {
   Login: {};
   Root: undefined;
   DailySkinScreen: {};
-  VisualizationScreen: undefined;
 };
 
 const Stack = createStackNavigator<ScreenStackParamList>();
@@ -38,22 +38,6 @@ export const ScreenNavigator = () => {
         component={BottomTabNavigator}
         options={{
           headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="VisualizationScreen"
-        component={VisualizationScreen}
-        options={{
-          headerTitle:"Health profile",
-          headerTintColor:"grey",
-          headerStyle:{
-            backgroundColor: 'white'
-          },
-          headerTitleStyle:{
-            color:"#FF75A7",
-            fontSize:25,
-          },
-          headerBackTitleVisible: false
         }}
       />
     </Stack.Navigator>
@@ -103,7 +87,7 @@ export const BottomTabNavigator = () => {
             ),
           }}
           name="User"
-          component={UserScreen}
+          component={UserNavigation}
         />
       </Tab.Navigator>
     </SafeAreaProvider>
