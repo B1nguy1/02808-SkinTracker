@@ -41,6 +41,7 @@ interface ISingleDropDown{
 
 export interface IDropDown{
     data: ISingleDropDown[];
+    placeholder: string;
     setSelected: (val: string) => void;
 }
 

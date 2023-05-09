@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { IUserProfile } from "../utils/interfaces";
 import { Button } from "react-native-paper";
+import SkinFactorsOverview from "./Visualizations/SkinFactorsOverView";
 
 const UserProfile: React.FC<IUserProfile> = ({
   type,
@@ -16,6 +17,7 @@ const UserProfile: React.FC<IUserProfile> = ({
         <Text style={styles.typeTextStyle}>{type}</Text>
         <Text style={styles.descriptionTextStyle}>{description}</Text>
         <View style={{ marginTop: 30 }}>
+          <SkinFactorsOverview />
           <Button textColor="white" buttonColor="#d1809d" onPress={onPress}>
             Visualization of health data{" "}
           </Button>

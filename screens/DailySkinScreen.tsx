@@ -45,13 +45,15 @@ const DailySkinScreen = () => {
       if (userID != null) {
         await addDoc(SkinDataRef, {
           skinType: skinValue,
-          darkCircle: assignScoreToValue(darkCircleValue),
-          blackHead: assignScoreToValue(blackHeadValue),
-          dehydration: assignScoreToValue(dehydrationValue),
-          acne: assignScoreToValue(acneValue),
-          pores: assignScoreToValue(poresValue),
-          fineLines: assignScoreToValue(fineLinesValue),
-          spot: assignScoreToValue(spotValue),
+          skinValues:{
+            darkCircle: assignScoreToValue(darkCircleValue),
+            blackHead: assignScoreToValue(blackHeadValue),
+            dehydration: assignScoreToValue(dehydrationValue),
+            acne: assignScoreToValue(acneValue),
+            pores: assignScoreToValue(poresValue),
+            fineLines: assignScoreToValue(fineLinesValue),
+            spot: assignScoreToValue(spotValue),
+          },
           timeStamp: serverTimestamp(),
           userRef: userID,
         });
@@ -62,6 +64,7 @@ const DailySkinScreen = () => {
       console.error(error);
     }
   };
+
 
   return (
     <ScrollView style={styles.container}>
