@@ -38,8 +38,12 @@ const SleepOverview = () => {
     collection(db, "sleepData"),
     where("userRef", "==", getAuth().currentUser?.uid)
   );
-  const [sleepData, setSleepData] = React.useState<Array<ISleepDataFirebase>>([]);
-  const [sleepVisualizations, setSleepVisualizations] = React.useState<Array<sleepVizLabels>>([]);
+  const [sleepData, setSleepData] = React.useState<Array<ISleepDataFirebase>>(
+    []
+  );
+  const [sleepVisualizations, setSleepVisualizations] = React.useState<
+    Array<sleepVizLabels>
+  >([]);
 
   React.useEffect(() => {
     fetchData();
@@ -137,7 +141,7 @@ const SleepOverview = () => {
         </Text>
       );
     } else {
-      displayText = <Text>Your optimum number of sleep is too much</Text>;
+      displayText = <Text> Your optimum number of sleep is too much</Text>;
     }
     return displayText;
   };
@@ -145,67 +149,73 @@ const SleepOverview = () => {
   return (
     <View>
       <Text style={styles.titleTextStyle}>Sleep overview</Text>
-      <Text>{sleepHourConditions(newVizData, "y")}</Text>
+      <Text>{sorted_dates.length > 0 ? sleepHourConditions(newVizData, "y") : null}</Text>
       <View style={styles.subContainer}>
         <Text>
           Current month:{" "}
           {new Date().toLocaleDateString("en-us", { month: "long" })}
         </Text>
-        <VictoryChart width={350} domainPadding={20}>
-          <VictoryLine
-            y={() => 8}
-            samples={1}
-            labels={["", "50%"]}
-            style={{
-              data: { stroke: "red" },
-              parent: { border: "1px solid #ccc" },
-            }}
-            labelComponent={
-              <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
-            }
-          />
-          <VictoryLine
-            y={() => 7}
-            samples={1}
-            style={{
-              data: { stroke: "red" },
-              parent: { border: "1px solid #ccc" },
-            }}
-            labels={["", "50%"]}
-            labelComponent={
-              <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
-            }
-          />
-          <VictoryBar
-            labels={({ datum }) => `Hour: ${datum.y}`}
-            data={sorted_dates}
-            style={{ labels: { fill: "white" } }}
-            x="x"
-            y="y"
-          />
-          <VictoryAxis
-            dependentAxis={false}
-            tickLabelComponent={<VictoryLabel angle={45} y={263} />}
-            tickFormat={tickLabels}
-          />
-          <VictoryAxis dependentAxis />
-        </VictoryChart>
+        {sorted_dates.length > 0 ? (
+          <VictoryChart width={350} domainPadding={20}>
+            <VictoryLine
+              y={() => 8}
+              samples={1}
+              labels={["", "50%"]}
+              style={{
+                data: { stroke: "red" },
+                parent: { border: "1px solid #ccc" },
+              }}
+              labelComponent={
+                <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+              }
+            />
+            <VictoryLine
+              y={() => 7}
+              samples={1}
+              style={{
+                data: { stroke: "red" },
+                parent: { border: "1px solid #ccc" },
+              }}
+              labels={["", "50%"]}
+              labelComponent={
+                <VictoryLabel renderInPortal={false} dx={20} dy={-20} />
+              }
+            />
+            <VictoryBar
+              labels={({ datum }) => `Hour: ${datum.y}`}
+              data={sorted_dates}
+              style={{ labels: { fill: "white" } }}
+              x="x"
+              y="y"
+            />
+            <VictoryAxis
+              dependentAxis={false}
+              tickLabelComponent={<VictoryLabel angle={45} y={263} />}
+              tickFormat={tickLabels}
+            />
+            <VictoryAxis dependentAxis />
+          </VictoryChart>
+        ) : (
+          <View>
+            <Text style={{color:"red"}}> You have not tracked your sleep(s)! </Text>
+          </View>
+        )}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  titleTextStyle:{
-    fontWeight:"bold",
-    fontSize:16
+  titleTextStyle: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
-  subContainer:{
+  subContainer: {
     flex: 1,
     justifyContent: "center",
     backgroundColor: "lightgrey",
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });
 
 export default SleepOverview;

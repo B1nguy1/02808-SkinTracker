@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import {
   collection,
   limit,
@@ -28,6 +28,8 @@ const UserScreen = () => {
     orderBy("timeStamp", "desc"),
     limit(1)
   );
+
+
   const navigation = useNavigation<LoginNavigationProp>();
 
   const fetchData = () => {
@@ -64,10 +66,11 @@ const UserScreen = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ScrollView style={{ flex: 1 }}>
+      <View style={{alignItems:"center",justifyContent:"center", marginTop:50}}>
       <View style={styles.textStyle}>
       <FontAwesome name="user-circle-o" size={50} color="black" />
-      <View style={{marginTop:15}}>
+      <View style={{marginTop:10}}>
       <Text style={styles.textStyle2}>{userName ? userName.charAt(0).toUpperCase() + userName.slice(1) : null}</Text>
       </View>
       </View>
@@ -111,7 +114,8 @@ const UserScreen = () => {
           Sign out!
         </Button>
       </View>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

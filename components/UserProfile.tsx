@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignContent: "center",
     justifyContent: "center",
-    margin: 20,
+    margin: 10,
   },
   subContainer: {
     borderWidth: 2,

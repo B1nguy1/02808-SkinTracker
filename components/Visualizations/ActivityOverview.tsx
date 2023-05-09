@@ -90,12 +90,12 @@ const ActivityOverview = () => {
       .localeCompare(b.x.split("/").reverse().join())
   );
   
-  const tickLabels = newActivityDataList.map((d) => d.x)
+  const tickLabels = sortedDates.map((d) => d.x)
 
   return (
     <View>
-      <Text>Overview of fitness data</Text>
       <View>
+        {sortedDates.length > 0 ? (
         <VictoryChart width={350} domainPadding={20}>
           <VictoryLine
             y={() => 2500}
@@ -139,6 +139,11 @@ const ActivityOverview = () => {
           />
           <VictoryAxis dependentAxis />
         </VictoryChart>
+        ) : (
+          <View>
+            <Text style={{color:"red"}}>No activity data tracked!</Text>
+          </View>
+        )}
       </View>
     </View>
   );
