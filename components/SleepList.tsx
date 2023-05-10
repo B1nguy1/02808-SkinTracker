@@ -81,7 +81,7 @@ const SleepList = () => {
           return (
             <View key={sleep.id} style={{margin:5}}>
               <SleepCard
-                date_from={sleep.date}
+                date={sleep.date}
                 onPress={() => handleDelete(sleep.id)}
               />
             </View>

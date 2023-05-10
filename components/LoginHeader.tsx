@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const LoginHeader = () => {
     return (
         <View>
-            <Text style={styles.titleStyle}> Skin Tracking </Text>
+            <Text style={styles.titleStyle}> Skin Tracker </Text>
         </View>
     )
 }

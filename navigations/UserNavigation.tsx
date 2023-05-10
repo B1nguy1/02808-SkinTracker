@@ -31,6 +31,7 @@ export const UserNavigation = () => {
                 options={{
                     headerTitle:"Health profile",
                     headerTintColor:"grey",
+                    gestureEnabled:false,
                     headerBackTitleVisible:false,
                     headerStyle:{
                         backgroundColor:"white"
@@ -47,6 +48,7 @@ export const UserNavigation = () => {
                 options={{
                     headerTitle: "Sleep data",
                     headerTintColor:"grey",
+                    gestureEnabled:false,
                     headerBackTitleVisible:false,
                     headerStyle:{
                         backgroundColor:"white"

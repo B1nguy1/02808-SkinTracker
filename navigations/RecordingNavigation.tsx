@@ -51,6 +51,7 @@ export const RecordingNavigation = () => {
                 component={SleepTrackingScreen}
                 options={{
                     headerTitle:"Sleep tracking",
+                    gestureEnabled:false,
                     headerBackTitleVisible:false,
                     headerTintColor:"grey",
                     headerStyle:{
@@ -68,6 +69,7 @@ export const RecordingNavigation = () => {
                 options={{
                     headerTitle:"Activity tracking",
                     headerBackTitleVisible:false,
+                    gestureEnabled:false,
                     headerTintColor:"grey",
                     headerStyle:{
                         backgroundColor:"white"

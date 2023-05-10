@@ -30,6 +30,7 @@ export const HomeNavigation = () => {
             options={{
                 headerBackTitleVisible:false,
                 headerTitle:"Self Assessment",
+                gestureEnabled:false,
                 headerTintColor:"grey",
                 headerStyle:{
                     backgroundColor:"white"

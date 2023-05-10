@@ -66,7 +66,7 @@ const UserScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
       <View style={{alignItems:"center",justifyContent:"center", marginTop:50}}>
       <View style={styles.textStyle}>
       <FontAwesome name="user-circle-o" size={50} color="black" />

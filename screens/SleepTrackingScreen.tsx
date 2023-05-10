@@ -76,7 +76,7 @@ const SleepTrackingScreen = () => {
           onChange={handleEndDateChange}
         />
       </View>
-      <Button textColor="black" buttonColor="#FF75A7" onPress={addSleepData}>
+      <Button textColor="white" buttonColor="#FF75A7" onPress={addSleepData}>
         Save your sleep data{" "}
       </Button>
     </View>

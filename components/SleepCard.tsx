@@ -24,7 +24,7 @@ const SleepCard: React.FC<ISleep> = ({ date, onPress }) => {
         <View style={styles.iconViewStyle}>
           <Button onPress={onPress} textColor="white" buttonColor="red">
           <FontAwesome name="trash-o" size={23} color="white" />
-            DELETE
+            Delete
           </Button>
         </View>
       </View>
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 350,
     height: 80,
+    backgroundColor:"#f5cac3",
     alignItems: "flex-start",
     justifyContent: "center",
   },
