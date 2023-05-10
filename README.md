@@ -7,7 +7,7 @@ After the project has been cloned to your own computer:
 
 1. Navigate to the project folder by **cd 02808-SkinTracker-master/02808-SkinTracker-master**
 2. Run **npm install** in the navigated project folder
-3. Run **npm install --global expo-cli** (In case this does not work, run: npm install expo-cli@6.3.2)
+3. Run **npm install --global expo-cli** (In case this does not work, run **npm install expo-cli@6.3.2**)
 4. Run **npm start**
 
 # How to run the application on smart phone
@@ -23,5 +23,5 @@ For both devices, make sure that "Expo Go" has been downloaded to your phone
 2. Press on **QR Code** under projects
 3. Scan the QR code that appears in the terminal
 
-# Short demo of functional prototype
+# Short demo of SkinTracker
 https://www.youtube.com/watch?v=aMbdYWyCCjc 
