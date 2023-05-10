@@ -1,21 +1,55 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { LoginNavigationProp } from "../utils/navigation.props";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LoginHeader from "../components/LoginHeader";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Login = () => {
   const navigation = useNavigation<LoginNavigationProp>();
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const registerUser = () => {
+    createUserWithEmailAndPassword(auth, userName, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const doc_ref = addDoc(collection(db,"users"),{
+          userID: userCredential.user.uid
+        })
+        navigation.navigate("Root");
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  };
+
+  const signIn = () => {
+    signInWithEmailAndPassword(auth, userName, password)
+      .then((uc) => {
+        const user = uc.user;
+        navigation.navigate("Root");
+      })
+      .catch((e) => {
+        if (e.code === "auth/user-not-found") {
+          Alert.alert("User not found!");
+        }
+      });
+  };
+
   return (
     <View style={styles.input}>
       <LoginHeader />
-      <View style={{marginLeft:30, marginTop: 30}}>
+      <View style={{ marginLeft: 30, marginTop: 30 }}>
         <Text style={styles.textStyle}> Welcome! </Text>
 
         <View style={{ margin: 10 }}>
@@ -43,11 +77,7 @@ const Login = () => {
 
         <View style={styles.buttonStyle}>
           <View style={styles.button1}>
-            <Button
-              textColor="white"
-              buttonColor="#FF75A7"
-              onPress={() => navigation.navigate("Root")}
-            >
+            <Button textColor="white" buttonColor="#FF75A7" onPress={signIn}>
               Login!
             </Button>
           </View>
@@ -55,7 +85,7 @@ const Login = () => {
             <Button
               textColor="white"
               buttonColor="#FF75A7"
-              onPress={() => console.log("Test")}
+              onPress={registerUser}
             >
               Sign up
             </Button>
@@ -63,7 +93,10 @@ const Login = () => {
         </View>
       </View>
       <View>
-        <Text style={{marginTop: 40, fontSize: 17, alignSelf:"center"}}> Or login with </Text>
+        <Text style={{ marginTop: 40, fontSize: 17, alignSelf: "center" }}>
+          {" "}
+          Or login with{" "}
+        </Text>
         <View style={{ alignItems: "center" }}>
           <View
             style={{
@@ -106,7 +139,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   buttonStyle: {
-    marginTop: 20,
+    marginTop: 10,
     width: 200,
   },
   button1: {

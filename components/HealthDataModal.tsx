@@ -1,14 +1,17 @@
 import React from 'react';
 import { Modal, Pressable, View, Text, StyleSheet } from 'react-native';
+import { IHealthDataModal } from '../utils/interfaces';
 
-interface IHealthDataModal {
-    setVisible: () => void;
-    visible: boolean;
-}
+/**
+ * 
+ * HealthDataModal is a modal that will be displayed to 
+ * the user when pressing on synchronizing local data
+ * and allows the user to synchronize local data from Health Apps.
+ * This is not implemented yet due to the lack of knowledge of connecting
+ * React Native with other apps. 
+ */
 
 const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
-
-
     return (
         <View style={styles.container}>
             <Modal
@@ -19,16 +22,16 @@ const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
             >
             <View style={styles.container}>
                 <View style={styles.subContainer}>
-                    <Text style={{fontSize:15}}>Do you want to synchronize local data?</Text>
+                    <Text style={styles.synchronizeTextStyle}>Do you want to synchronize local data?</Text>
                     <View style={styles.buttonContainer}>
                     <View>
                     <Pressable onPress={() => props.setVisible()}>
-                        <Text style={{color:"red", fontSize:15, marginRight: 20}}> NO </Text>
+                        <Text style={styles.noTextStyle}> NO </Text>
                     </Pressable>
                     </View>
                     <View>
                         <Pressable onPress={() => props.setVisible()}>
-                            <Text style={{color:"#2194FF", fontSize: 15}}>YES</Text>
+                            <Text style={styles.yesTextStyle}>YES</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -66,6 +69,18 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"space-around"
+    },
+    noTextStyle:{
+        color:"red", 
+        fontSize:15, 
+        marginRight: 20
+    },
+    yesTextStyle:{
+        color:"#2194FF", 
+        fontSize: 15
+    },
+    synchronizeTextStyle:{
+        fontSize:15
     }
 })
 
