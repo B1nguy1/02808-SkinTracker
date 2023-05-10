@@ -22,3 +22,6 @@ For both devices, make sure that "Expo Go" has been downloaded to your phone
 1. Open **Expo Go** app
 2. Press on **QR Code** under projects
 3. Scan the QR code that appears in the terminal
+
+# Short demo of functional prototype
+https://www.youtube.com/watch?v=aMbdYWyCCjc 
