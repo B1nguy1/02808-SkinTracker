@@ -1,8 +1,15 @@
-import { collection, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import React from "react";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,18 +27,12 @@ interface ISkinFactors {
   skinValues: ISkinValues[];
 }
 
-export type ColorData = {
+type ColorData = {
   name: string;
   color: string;
 };
 
-export interface Test {
-  value:number;
-  name: string;
-  color: string;
-};
-
-export type ColorProps = {
+type ColorProps = {
   data: ColorData;
 };
 
@@ -52,7 +53,8 @@ const SkinFactorsOverview = () => {
   const skinCollection = collection(db, "skinData");
   const skinQuery = query(
     skinCollection,
-    where("userRef", "==", getAuth().currentUser?.uid), orderBy("timeStamp", "desc"),
+    where("userRef", "==", getAuth().currentUser?.uid),
+    orderBy("timeStamp", "desc"),
     limit(1)
   );
 
@@ -80,57 +82,54 @@ const SkinFactorsOverview = () => {
     return data;
   };
 
-  const liste = convertDataToArrayOfObjects();
-  const convert2DtoSingleArray = liste.reduce(
+  const updatedSkinFactorsData = convertDataToArrayOfObjects();
+  const convert2DtoSingleArray = updatedSkinFactorsData.reduce(
     (acc, curr) => [...acc, ...curr],
     []
   );
 
+  // Splits an array with single object to an array of multiple objects
   const newVizData = convert2DtoSingleArray.map((obj) => {
     const name = Object.keys(obj)[0];
     return { name, score: obj[name] };
   });
 
+  // Matches the name of skin factor with another array and merges into one array of object
   const mergeTwoArrays = newVizData.map((obj) => {
     const obj1 = skinValueWithColor.find((obj1) => obj1.name === obj.name);
     return { ...obj, ...obj1 };
   });
 
+  //Update keys of objects in an array to be value, name and color
   const updatedData = mergeTwoArrays.map(({ score, name, color }) => ({
     value: parseInt(score),
     name: name,
     color: color?.toString(),
   }));
 
-  let skinScore = updatedData.reduce(function(prev, current) {
-    return prev + +current.value
+  // Sums the value of the skin score(s)
+  let skinScore = updatedData.reduce(function (prev, current) {
+    return prev + +current.value;
   }, 0);
 
-  
-
+  // Inspiration from:  https://gifted-charts.web.app/piechart
   const renderDot = (color: string) => {
     return (
       <View
-        style={{
-          height: 10,
-          width: 10,
-          borderRadius: 5,
-          backgroundColor: color,
-          marginRight: 10,
-        }}
+        style={[
+          styles.renderDotViewStyle,
+          {
+            backgroundColor: color,
+          },
+        ]}
       />
     );
   };
 
+  // A reusable component that will be render in renderItem function
   const SkinValueCard = ({ data }: ColorProps) => {
     return (
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          width: 120,
-        }}
-      >
+      <View style={styles.skinValueCardView}>
         {renderDot(data.color)}
         <Text style={{ color: "black" }}>{data.name}</Text>
       </View>
@@ -143,7 +142,7 @@ const SkinFactorsOverview = () => {
 
   const renderLegends = () => {
     return (
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           scrollEnabled={false}
           numColumns={2}
@@ -157,13 +156,7 @@ const SkinFactorsOverview = () => {
 
   return (
     <View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 10,
-        }}
-      >
+      <View style={styles.subContainer}>
         <PieChart
           strokeColor="white"
           strokeWidth={4}
@@ -178,12 +171,42 @@ const SkinFactorsOverview = () => {
           showGradient
         />
       </View>
-      <Text style={{fontSize:15}}>Your skin health score is: <Text style={{fontWeight:"bold"}}>{skinScore} / 21 </Text>  </Text>
-      <View style={{ marginBottom: 10, alignItems: "center" }}>
-        {renderLegends()}
-      </View>
+      <Text style={styles.healthScoreTextStyle}>
+        Your skin health score is:{" "}
+        <Text style={styles.skinScoreTextStyle}>{skinScore} / 21 </Text>{" "}
+      </Text>
+      <View style={styles.renderLegendsView}>{renderLegends()}</View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  subContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+  healthScoreTextStyle: {
+    fontSize: 15,
+  },
+  skinScoreTextStyle: {
+    fontWeight: "bold",
+  },
+  renderLegendsView: {
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  renderDotViewStyle: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  skinValueCardView: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 120,
+  },
+});
 
 export default SkinFactorsOverview;

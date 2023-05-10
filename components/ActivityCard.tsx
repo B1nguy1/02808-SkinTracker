@@ -28,7 +28,6 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
   };
 
   /**
-   * 
    * @param activity the activity chosen
    * @param hour the hour spent on the activity
    * @returns calculation of calories based on activity and hour spent

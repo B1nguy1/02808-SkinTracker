@@ -19,8 +19,12 @@ interface ISleepData {
   date_from: Timestamp;
 }
 
+/**
+ * SleepList is a component that renders all SleepCard and 
+ * displays in ordered way after Dates
+ */
 const SleepList = () => {
-  const userQuery = query(
+  const sleepQuery = query(
     collection(db, "sleepData"),
     where("userRef", "==", getAuth().currentUser?.uid)
   );
@@ -30,8 +34,10 @@ const SleepList = () => {
     fetchData();
   }, []);
 
+
+  // Fetches sleep data from Firebase firestore
   const fetchData = () => {
-    const unsubscribe = onSnapshot(userQuery, (snapshot) => {
+    const unsubscribe = onSnapshot(sleepQuery, (snapshot) => {
       const data: any = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -41,20 +47,24 @@ const SleepList = () => {
     return unsubscribe;
   };
 
+
+  // Formats a date to a format DD/MM/YYYY
   const formatDate = (date: Date) => {
     return moment(date).format("DD/MM/YYYY");
   };
 
-  // Data for visualization
+  // Maps the data into a format like: [{id: "id321", date: DD/MM/YYYY}]
   const vizData = sleepData.map(({ id, date_from }) => ({
     id: id,
     date: formatDate(new Date(date_from.toDate().toUTCString())),
   }));
 
+  // Deletes a firebase document with a given ID from the database
   const handleDelete = async (id: string) => {
     const reference = doc(db, "sleepData", id);
     await deleteDoc(reference);
   };
+
 
   const sorted_dates = vizData.sort((a, b) =>
   a.date

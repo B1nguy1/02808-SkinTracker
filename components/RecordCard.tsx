@@ -4,6 +4,14 @@ import { IRecordCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
 import { AntDesign } from "@expo/vector-icons";
 
+/**
+ * Card component that will be used in the recording page of 
+ * the application to render a single category to record data
+ * RecordCard component contains title of the category, icon and 
+ * is also a pressable card that navigates to a subcategory of the 
+ * main category based on the category title. This is done by the onPress function
+ *
+ */
 
 const RecordCard = ({ rcId, rcTitle, rcIcon,onPress }: IRecordCard): JSX.Element => {
     

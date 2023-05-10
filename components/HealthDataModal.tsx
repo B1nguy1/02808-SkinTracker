@@ -2,9 +2,16 @@ import React from 'react';
 import { Modal, Pressable, View, Text, StyleSheet } from 'react-native';
 import { IHealthDataModal } from '../utils/interfaces';
 
+/**
+ * 
+ * HealthDataModal is a modal that will be displayed to 
+ * the user when pressing on synchronizing local data
+ * and allows the user to synchronize local data from Health Apps.
+ * This is not implemented yet due to the lack of knowledge of connecting
+ * React Native with other apps. 
+ */
 
 const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
-
     return (
         <View style={styles.container}>
             <Modal
@@ -15,7 +22,7 @@ const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
             >
             <View style={styles.container}>
                 <View style={styles.subContainer}>
-                    <Text style={{fontSize:15}}>Do you want to synchronize local data?</Text>
+                    <Text style={styles.synchronizeTextStyle}>Do you want to synchronize local data?</Text>
                     <View style={styles.buttonContainer}>
                     <View>
                     <Pressable onPress={() => props.setVisible()}>
@@ -71,6 +78,9 @@ const styles = StyleSheet.create({
     yesTextStyle:{
         color:"#2194FF", 
         fontSize: 15
+    },
+    synchronizeTextStyle:{
+        fontSize:15
     }
 })
 

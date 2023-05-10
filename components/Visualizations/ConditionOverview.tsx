@@ -3,30 +3,44 @@ import React from "react";
 import { db } from "../../firebase";
 import { View, Text, StyleSheet } from "react-native";
 import { getAuth } from "firebase/auth";
-import {VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import {
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryTheme,
+} from "victory-native";
 
 type skinTypes = {
   skinType: string;
   amount: number;
 };
 
+/**
+ * This component fetches skin data from Firebase Firestore and
+ *  visualizes the skin types through a bar chart
+ */
+
 const ConditionOverview = () => {
   const [dataGraph, setDataGraph] = React.useState<Array<skinTypes>>([]);
   const [graphData, setGraphData] = React.useState<Array<skinTypes>>([]);
   const skinCollection = collection(db, "skinData");
-  const testGraph: { skinType: string; amount: number }[] = [];
-  const query1 = query(skinCollection,where("userRef", "==", getAuth().currentUser?.uid));
-  
+  const skinGraphData: { skinType: string; amount: number }[] = [];
+  const skinQuery = query(
+    skinCollection,
+    where("userRef", "==", getAuth().currentUser?.uid)
+  );
+
   React.useEffect(() => {
     fetchSkins();
   }, []);
 
   React.useEffect(() => {
     getData();
-  },[dataGraph])
+  }, [dataGraph]);
 
+  //Fetches skin data from Firebase firestore
   const fetchSkins = () => {
-    const unsubs = onSnapshot(query1, (snapshot) => {
+    const unsubs = onSnapshot(skinQuery, (snapshot) => {
       const data: any = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -36,6 +50,11 @@ const ConditionOverview = () => {
     return () => unsubs();
   };
 
+
+  /**
+   * Modifies the retrieved data from backend and calculates
+   * percentage of tracked skin types
+   */
   const getData = () => {
     const skins: string[] = dataGraph.map(
       (skin: { skinType: string }) => skin.skinType
@@ -49,49 +68,59 @@ const ConditionOverview = () => {
           count++;
         }
       });
-       testGraph.push({ skinType: uSkin, amount: (count/skins.length)*100 });
-       setGraphData(testGraph);
-
+      skinGraphData.push({
+        skinType: uSkin,
+        amount: (count / skins.length) * 100,
+      });
+      setGraphData(skinGraphData);
     });
-  }
-  
-  const updatedGraphData = graphData.map(({ skinType, amount }) => ({x:skinType, y:amount }));  
+  };
+
+  // Updates the modified data to an array of object with keys x,y to use for visualization
+  const updatedGraphData = graphData.map(({ skinType, amount }) => ({
+    x: skinType,
+    y: amount,
+  }));
   const tickLabels = updatedGraphData.map((d) => d.x);
-  
+
   return (
     <View>
-    {updatedGraphData.length > 0 ? (
-      <View style={styles.graphViewStyle}>
-        <Text style={styles.textStyle}>Skin type overview</Text>
-      <VictoryChart width={340} domainPadding={20} theme={VictoryTheme.material}>
-      <VictoryBar
-          data={updatedGraphData}
-          x="x"
-          y="y"
-          style={{ data: { fill: "#FF75A7" } }}
-          barWidth={10}
-        />
-        <VictoryAxis dependentAxis={false} tickFormat={tickLabels}/>
-        <VictoryAxis dependentAxis/>
-      </VictoryChart>
-      </View>
-  ):(
-    <Text>Track your skin condition to see the graph! </Text>
-  )}
+      {updatedGraphData.length > 0 ? (
+        <View style={styles.graphViewStyle}>
+          <Text style={styles.textStyle}>Skin type overview</Text>
+          <VictoryChart
+            width={340}
+            domainPadding={20}
+            theme={VictoryTheme.material}
+          >
+            <VictoryBar
+              data={updatedGraphData}
+              x="x"
+              y="y"
+              style={{ data: { fill: "#FF75A7" } }}
+              barWidth={10}
+            />
+            <VictoryAxis dependentAxis={false} tickFormat={tickLabels} />
+            <VictoryAxis dependentAxis />
+          </VictoryChart>
+        </View>
+      ) : (
+        <Text>Track your skin condition to see the graph! </Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  graphViewStyle:{
-    backgroundColor:"white",
-    borderRadius:10
+  graphViewStyle: {
+    backgroundColor: "white",
+    borderRadius: 10,
   },
-  textStyle:{
-    fontWeight:"bold",
-    marginLeft:10,
-    fontSize:16,
-  }
-})
+  textStyle: {
+    fontWeight: "bold",
+    marginLeft: 10,
+    fontSize: 16,
+  },
+});
 
 export default ConditionOverview;

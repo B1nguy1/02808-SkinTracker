@@ -3,20 +3,25 @@ import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import { FontAwesome } from '@expo/vector-icons'; 
 
-export interface ISleep {
-  date_from: string;
+interface ISleep {
+  date: string;
   onPress: () => void;
 }
 
-const SleepCard: React.FC<ISleep> = ({ date_from, onPress }) => {
+/**
+ * Component that creates a card for single sleep data
+ * 
+ * @param date the date of sleep tracked
+ * @param onPress a function to delete a given sleep data 
+ */
+const SleepCard: React.FC<ISleep> = ({ date, onPress }) => {
   return (
     <View style={styles.cardStyle}>
       <View>
         <View style={{ bottom: 10 }}>
-          <Text style={styles.cardTextStyle}>{date_from}</Text>
+          <Text style={styles.cardTextStyle}>{date}</Text>
         </View>
         <View style={styles.iconViewStyle}>
-          
           <Button onPress={onPress} textColor="white" buttonColor="red">
           <FontAwesome name="trash-o" size={23} color="white" />
             DELETE

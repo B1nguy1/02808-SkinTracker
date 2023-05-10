@@ -7,8 +7,7 @@ import { HomeNavigationProp, UserNavigationProp } from "../utils/navigation.prop
 
 
 /**
- * Component that creates a pressable card for different categories
- * 
+ * Component that creates a pressable card for different categories in HomePage
  * @param id the id of the category
  * @param title the title of the category
  * @param icon the icon of the category

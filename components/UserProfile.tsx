@@ -4,6 +4,15 @@ import { IUserProfile } from "../utils/interfaces";
 import { Button } from "react-native-paper";
 import SkinFactorsOverview from "./Visualizations/SkinFactorsOverView";
 
+/**
+ * A component that creates a userProfile card that will
+ * display a donut chart of skin factors and a short
+ * description current skin type
+ * 
+ * @param type type the type of the skin
+ * @param description the description of a given skinType
+ */
+
 const UserProfile: React.FC<IUserProfile> = ({
   type,
   id,
@@ -14,7 +23,7 @@ const UserProfile: React.FC<IUserProfile> = ({
     <View style={styles.container}>
       <Text>{`\u2022 ${"The test results are affected by the information we get from your answers. If they are not consistent with the actual situation, they can be modified to recommend a more suitable solution for you."}`}</Text>
       <View key={id} style={styles.subContainer}>
-        <Text style={{fontWeight:"bold",color:"grey",fontSize:20, marginBottom:5, right: 7}}> Summary </Text>
+        <Text style={styles.summaryTextStyle}> Summary </Text>
         <Text style={styles.typeTextStyle}>{type}</Text>
         <Text style={styles.descriptionTextStyle}>{description}</Text>
         <View style={styles.skinFactorsView}>
@@ -61,6 +70,13 @@ const styles = StyleSheet.create({
   },
   skinFactorsView:{
     marginTop:30
+  },
+  summaryTextStyle:{
+    fontWeight:"bold",
+    color:"grey",
+    fontSize:20,
+    marginBottom:5,
+    right: 7
   }
 });
 
