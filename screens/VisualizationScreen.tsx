@@ -9,16 +9,15 @@ const VisualizationScreen = () => {
     <ScrollView style={styles.scrollViewContainer}>
       <View style={styles.viewStyle}>
         <View>
-          <Text style={styles.titleStyle}>Activity data overview</Text>
         </View>
-        <ActivityOverview />
+        <ConditionOverview />
       </View>
       <View style={styles.viewStyle}></View>
       <View style={styles.viewStyle}>
         <SleepOverview />
       </View>
       <View style={styles.viewStyle}>
-        <ConditionOverview />
+        <ActivityOverview />
       </View>
     </ScrollView>
   );

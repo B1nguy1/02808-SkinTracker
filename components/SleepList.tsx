@@ -55,12 +55,21 @@ const SleepList = () => {
     const reference = doc(db, "sleepData", id);
     await deleteDoc(reference);
   };
+
+  const sorted_dates = vizData.sort((a, b) =>
+  a.date
+    .split("/")
+    .reverse()
+    .join()
+    .localeCompare(b.date.split("/").reverse().join())
+);
+
   return (
     <View style={styles.container}>
-      {vizData.length > 0 ? (
-        vizData.map((sleep) => {
+      {sorted_dates.length > 0 ? (
+        sorted_dates.map((sleep) => {
           return (
-            <View key={sleep.id}>
+            <View key={sleep.id} style={{margin:5}}>
               <SleepCard
                 date_from={sleep.date}
                 onPress={() => handleDelete(sleep.id)}

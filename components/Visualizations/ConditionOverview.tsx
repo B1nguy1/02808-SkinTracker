@@ -1,7 +1,7 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React from "react";
 import { db } from "../../firebase";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { getAuth } from "firebase/auth";
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
@@ -59,24 +59,39 @@ const ConditionOverview = () => {
   const tickLabels = updatedGraphData.map((d) => d.x);
   
   return (
-    <View style={{backgroundColor:"lightgrey"}}>
+    <View>
     {updatedGraphData.length > 0 ? (
-      <VictoryChart width={350} domainPadding={20} theme={VictoryTheme.material}>
+      <View style={styles.graphViewStyle}>
+        <Text style={styles.textStyle}>Skin type overview</Text>
+      <VictoryChart width={340} domainPadding={20} theme={VictoryTheme.material}>
       <VictoryBar
           data={updatedGraphData}
           x="x"
           y="y"
-          style={{ data: { fill: "orange" } }}
+          style={{ data: { fill: "#FF75A7" } }}
           barWidth={10}
         />
         <VictoryAxis dependentAxis={false} tickFormat={tickLabels}/>
         <VictoryAxis dependentAxis/>
       </VictoryChart>
+      </View>
   ):(
     <Text>Track your skin condition to see the graph! </Text>
   )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  graphViewStyle:{
+    backgroundColor:"white",
+    borderRadius:10
+  },
+  textStyle:{
+    fontWeight:"bold",
+    marginLeft:10,
+    fontSize:16,
+  }
+})
 
 export default ConditionOverview;

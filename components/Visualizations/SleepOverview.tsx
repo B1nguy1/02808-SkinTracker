@@ -16,6 +16,7 @@ import {
   VictoryChart,
   VictoryLabel,
   VictoryLine,
+  VictoryTheme,
 } from "victory-native";
 
 interface ISleepDataFirebase {
@@ -141,22 +142,19 @@ const SleepOverview = () => {
         </Text>
       );
     } else {
-      displayText = <Text> Your optimum number of sleep is too much</Text>;
+      displayText = <Text> Your optimum number of sleep which is {sleepAverageHour} hours, is too much</Text>;
     }
     return displayText;
   };
 
   return (
     <View>
-      <Text style={styles.titleTextStyle}>Sleep overview</Text>
-      <Text>{sorted_dates.length > 0 ? sleepHourConditions(newVizData, "y") : null}</Text>
       <View style={styles.subContainer}>
-        <Text>
-          Current month:{" "}
-          {new Date().toLocaleDateString("en-us", { month: "long" })}
-        </Text>
         {sorted_dates.length > 0 ? (
-          <VictoryChart width={350} domainPadding={20}>
+          <View style={styles.graphViewStyle}>
+            <Text style={styles.titleTextStyle}>Sleep overview in {new Date().toLocaleDateString("en-us", { month: "long" })}</Text>
+          <Text style={{marginLeft:10}}>{sorted_dates.length > 0 ? sleepHourConditions(newVizData, "y") : null}</Text>
+          <VictoryChart width={350} domainPadding={20} theme={VictoryTheme.material}>
             <VictoryLine
               y={() => 8}
               samples={1}
@@ -184,20 +182,22 @@ const SleepOverview = () => {
             <VictoryBar
               labels={({ datum }) => `Hour: ${datum.y}`}
               data={sorted_dates}
-              style={{ labels: { fill: "white" } }}
+              style={{ labels: { fill: "black" },data: { fill: "#FF75A7" }  }}
               x="x"
               y="y"
             />
             <VictoryAxis
               dependentAxis={false}
-              tickLabelComponent={<VictoryLabel angle={45} y={263} />}
+              tickLabelComponent={<VictoryLabel angle={-45} y={300} />}
               tickFormat={tickLabels}
             />
             <VictoryAxis dependentAxis />
           </VictoryChart>
+          </View>
         ) : (
           <View>
-            <Text style={{color:"red"}}> You have not tracked your sleep(s)! </Text>
+            <Text style={styles.titleTextStyle}>Sleep Overview</Text>
+            <Text style={{color:"red", marginLeft:9}}> You have not tracked your sleep(s)! </Text>
           </View>
         )}
       </View>
@@ -209,13 +209,19 @@ const styles = StyleSheet.create({
   titleTextStyle: {
     fontWeight: "bold",
     fontSize: 16,
+    marginLeft:10
   },
   subContainer: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "lightgrey",
     marginTop: 10,
+    backgroundColor:"white"
   },
+  graphViewStyle:{
+    backgroundColor:"white",
+    borderRadius:10
+  },
+
 });
 
 export default SleepOverview;

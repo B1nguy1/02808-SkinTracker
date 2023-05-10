@@ -30,7 +30,7 @@ export const RecordingNavigation = () => {
                 name="DailySkinScreen"
                 component={DailySkinScreen}
                 options={{
-                    headerTitle:"Daily skin",
+                    headerTitle:"Self Assessment",
                     headerTintColor:"grey",
                     headerBackTitleVisible:false,
                     gestureEnabled:false,

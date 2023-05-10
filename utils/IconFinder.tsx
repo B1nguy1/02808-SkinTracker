@@ -19,16 +19,16 @@ export const HandleIconType: React.FC<IconProps> = (props) => {
             Icon = <MaterialCommunityIcons name="face-woman" size={props.size} color="#f72585" />
             break;
         case 'sleep':
-            Icon = <MaterialCommunityIcons name="sleep" size={props.size} color="black" />
+            Icon = <MaterialCommunityIcons name="sleep" size={props.size} color="#f72585" />
             break;
         case 'running':
-            Icon = <FontAwesome5 name="running" size={props.size} color="black" />
+            Icon = <FontAwesome5 name="running" size={props.size} color="#f72585" />
             break;
         case 'cycling':
-            Icon = <Ionicons name="bicycle" size={props.size} color="black" />
+            Icon = <Ionicons name="bicycle" size={props.size} color="#f72585" />
             break;
         case "yoga":
-            Icon = <MaterialCommunityIcons name="yoga" size={24} color="black" />
+            Icon = <MaterialCommunityIcons name="yoga" size={24} color="#f72585" />
             break;
         default:
             Icon = <MaterialIcons name="error" size={24} color="black" />

@@ -35,7 +35,7 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
                   min={0}
                   width={150}
                   colorMax={"#f04048"}
-                  colorMin={"#40c5f4"}
+                  colorMin={"#a020f0"}
                   value={props.activityHour}
                   onChange={props.setActivityHour}
                 />
@@ -66,7 +66,7 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
                   }}
                 >
                   <Text style={styles.saveTextColor}>
-                    SAVE ACTIVITY
+                    SAVE
                   </Text>
                 </Pressable>
               </View>
@@ -109,12 +109,14 @@ const styles = StyleSheet.create({
     marginLeft:10
   },
   saveButtonStyle:{
-    backgroundColor:"#FF757A",
+    backgroundColor:"#FF75A7",
     borderRadius:5,
     padding:5,
+    paddingVertical:5,
+    paddingHorizontal:10
   },
   saveTextColor:{
-    color:"black",
+    color:"white",
     fontSize:15
   },
   cancelButtonStyle:{
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     marginRight:10,
   },
   cancelTextStyle:{
-    color:"black",
+    color:"white",
     fontSize:15
   },
   calendarComponentView:{

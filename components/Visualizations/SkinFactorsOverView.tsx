@@ -25,6 +25,12 @@ export type ColorData = {
   color: string;
 };
 
+export interface Test {
+  value:number;
+  name: string;
+  color: string;
+};
+
 export type ColorProps = {
   data: ColorData;
 };
@@ -34,7 +40,7 @@ export const skinValueWithColor: ColorData[] = [
   { name: "blackHead", color: "#79D2DE" },
   { name: "darkCircle", color: "#ED6665" },
   { name: "dehydration", color: "lightgray" },
-  { name: "fineLines", color: "#177AD5" },
+  { name: "fineLines", color: "green" },
   { name: "pores", color: "orange" },
   { name: "spot", color: "red" },
 ];
@@ -90,10 +96,16 @@ const SkinFactorsOverview = () => {
   });
 
   const updatedData = mergeTwoArrays.map(({ score, name, color }) => ({
-    value: score,
+    value: parseInt(score),
     name: name,
-    color: color,
+    color: color?.toString(),
   }));
+
+  let skinScore = updatedData.reduce(function(prev, current) {
+    return prev + +current.value
+  }, 0);
+
+  
 
   const renderDot = (color: string) => {
     return (
@@ -135,7 +147,7 @@ const SkinFactorsOverview = () => {
           scrollEnabled={false}
           numColumns={2}
           data={skinValueWithColor}
-          keyExtractor={(item,index) => index.toString()}
+          keyExtractor={(item) => "#" + item.name.toString()}
           renderItem={renderItem}
         />
       </SafeAreaView>
@@ -155,7 +167,6 @@ const SkinFactorsOverview = () => {
           strokeColor="white"
           strokeWidth={4}
           data={updatedData}
-          //   innerCircleColor="#414141"
           innerCircleBorderWidth={4}
           innerCircleBorderColor={"white"}
           showValuesAsLabels={true}
@@ -166,6 +177,7 @@ const SkinFactorsOverview = () => {
           showGradient
         />
       </View>
+      <Text style={{fontSize:15}}>Your skin health score is: <Text style={{fontWeight:"bold"}}>{skinScore} / 21 </Text>  </Text>
       <View style={{ marginBottom: 10, alignItems: "center" }}>
         {renderLegends()}
       </View>
