@@ -5,9 +5,10 @@ SkinTracker is a mobile application that has been developed by three students of
 # How to run the application
 After the project has been cloned to your own computer:
 
-1. Navigate to the project folder by **cd 02808-SkinTracker-master**
+1. Navigate to the project folder by **cd 02808-SkinTracker-master/02808-SkinTracker-master**
 2. Run **npm install** in the navigated project folder
-3. Run **npm start**
+3. Run **npm install --global expo-cli** (In case this does not work, run: npm install expo-cli@6.3.2)
+4. Run **npm start**
 
 # How to run the application on smart phone
 
