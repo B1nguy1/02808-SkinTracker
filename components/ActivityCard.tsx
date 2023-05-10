@@ -7,10 +7,16 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 
+/**
+ * A component that creates a card for an activity
+ * 
+ * @param rcId the rcId of the activity
+ * @param rcTitle the title of the activity
+ * @param rcIcon the icon of the activity
+ */
 const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
 
-  const [ActivityModalVisible, setActivityModalVisible] =
-    React.useState(false);
+  const [ActivityModalVisible, setActivityModalVisible] = React.useState(false);
   const activityDataRef = collection(db, "activityData");
   const [activityDate, setActivityDate] = React.useState(new Date());
   const [activityHour, setActivityHour] = React.useState(0);
@@ -21,9 +27,13 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
     setActivityDate(currentDate);
   };
 
-  
-  // Tracks calories burnt based on the chosen activity
-  const activityCalories = (activity: string, hour: number) => {
+  /**
+   * 
+   * @param activity the activity chosen
+   * @param hour the hour spent on the activity
+   * @returns calculation of calories based on activity and hour spent
+   */
+  const calculateActivityCalories = (activity: string, hour: number) => {
     let caloriesBurnt;
     switch (activity) {
       case "Jogging":
@@ -43,9 +53,9 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
   };
 
   /*
-  Adds an activity object to the database
+  Adds an activity object to the database in Firebase Firestore
   If the user does not exist or the date is tracked in advance,
-  then it will fail. 
+  then a user will get an error message. 
   */
   const addActivityToFirebase = async () => {
     try {
@@ -53,7 +63,7 @@ const ActivityCard = ({ rcId, rcTitle, rcIcon }: IRecordCard): JSX.Element => {
         await addDoc(activityDataRef, {
           activity_name: rcTitle,
           activity_date: activityDate,
-          activity_calories: activityCalories(rcTitle, activityHour),
+          activity_calories: calculateActivityCalories(rcTitle, activityHour),
           activity_hour: activityHour,
           userRef: userID,
         });

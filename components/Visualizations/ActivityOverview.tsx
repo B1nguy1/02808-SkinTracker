@@ -11,16 +11,7 @@ import { getAuth } from "firebase/auth";
 import moment from "moment";
 import { View, Text } from "react-native";
 import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from "victory-native";
-
-interface IActivityData {
-  activity_date: Timestamp;
-  activity_calories: number;
-}
-
-interface IActivityObject {
-  date: Date;
-  calories: number;
-}
+import { IActivityData } from "../../utils/interfaces";
 
 //Types to be able to display the graph using Victory library
 type victoryGraphLabel = {
@@ -42,6 +33,7 @@ const ActivityOverview = () => {
     getActivityData();
   }, []);
 
+
   const getActivityData = () => {
     const unsubs = onSnapshot(activityQuery, (snapshot) => {
       const firebaseData: any = snapshot.docs.map((doc) => ({
@@ -53,6 +45,7 @@ const ActivityOverview = () => {
     return unsubs;
   };
 
+  // Formates the date to a format: DD/MM/YYYY
   function dateFormat(activityDate: any) {
     return moment(new Date(activityDate.toDate().toUTCString())).format(
       "DD/MM/YYYY"

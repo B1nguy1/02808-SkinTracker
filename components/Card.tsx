@@ -3,22 +3,37 @@ import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { IHomeCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
 import { useNavigation } from "@react-navigation/native";
-import { TestNavigationProp } from "../utils/navigation.props";
+import { HomeNavigationProp, UserNavigationProp } from "../utils/navigation.props";
 
+
+/**
+ * Component that creates a pressable card for different categories
+ * 
+ * @param id the id of the category
+ * @param title the title of the category
+ * @param icon the icon of the category
+ * @param screenName the screenName of the category that will be navigated to
+ */
 const Card: React.FC<IHomeCard> = ({ id, title, icon, screenName }) => {
-  const navigation = useNavigation<TestNavigationProp>();
+  
+  const navigation = useNavigation<HomeNavigationProp & UserNavigationProp>();
 
-  const handleTest = (screenName: string) => {
+  // Navigates to a screen based on a given name of the screen
+  const navigateToScreen = (screenName: string) => {
     if (screenName === "DailySkinScreen") {
       navigation.navigate(screenName);
-    } else {
+    } 
+    else if (screenName === "UserScreen"){
+      navigation.navigate(screenName)
+    }
+    else {
       Alert.alert(screenName + " does not exist!");
     }
   };
 
   return (
     <View>
-      <TouchableOpacity onPress={() => handleTest(screenName)}>
+      <TouchableOpacity onPress={() => navigateToScreen(screenName)}>
         <View key={id} style={styles.homeCardStyle}>
           <Text style={styles.iconTitleStyle}>{title}</Text>
           <View style={styles.iconViewStyle}>

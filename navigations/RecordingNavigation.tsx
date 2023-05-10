@@ -22,7 +22,8 @@ export const RecordingNavigation = () => {
                 component={Recording}
                 options={{
                     headerShown:false,
-                    headerBackTitleVisible:false
+                    headerBackTitleVisible:false,
+                    gestureEnabled:false
                 }}
             />
             <Stack.Screen
@@ -32,6 +33,7 @@ export const RecordingNavigation = () => {
                     headerTitle:"Daily skin",
                     headerTintColor:"grey",
                     headerBackTitleVisible:false,
+                    gestureEnabled:false,
                     
                     headerStyle:{
                         backgroundColor:"white"

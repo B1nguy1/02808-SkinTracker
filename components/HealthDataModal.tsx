@@ -1,10 +1,7 @@
 import React from 'react';
 import { Modal, Pressable, View, Text, StyleSheet } from 'react-native';
+import { IHealthDataModal } from '../utils/interfaces';
 
-interface IHealthDataModal {
-    setVisible: () => void;
-    visible: boolean;
-}
 
 const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
 
@@ -22,12 +19,12 @@ const HealthDataModal: React.FC<IHealthDataModal> = (props) => {
                     <View style={styles.buttonContainer}>
                     <View>
                     <Pressable onPress={() => props.setVisible()}>
-                        <Text style={{color:"red", fontSize:15, marginRight: 20}}> NO </Text>
+                        <Text style={styles.noTextStyle}> NO </Text>
                     </Pressable>
                     </View>
                     <View>
                         <Pressable onPress={() => props.setVisible()}>
-                            <Text style={{color:"#2194FF", fontSize: 15}}>YES</Text>
+                            <Text style={styles.yesTextStyle}>YES</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -65,6 +62,15 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"space-around"
+    },
+    noTextStyle:{
+        color:"red", 
+        fontSize:15, 
+        marginRight: 20
+    },
+    yesTextStyle:{
+        color:"#2194FF", 
+        fontSize: 15
     }
 })
 

@@ -2,16 +2,14 @@ import React from "react";
 import { Modal, View, Text, Pressable, StyleSheet } from "react-native";
 import InputSpinner from "react-native-input-spinner";
 import CalendarComponent from "./CalendarComponent";
+import { IActivityModal } from "../utils/interfaces";
 
-interface IActivityModal {
-  setVisible: () => void;
-  visible: boolean;
-  activityHour: number;
-  setActivityHour: (hour:number) => void;
-  activityDate: Date;
-  handleDateChange: (event: any, selectedDate?: Date | undefined) => void;
-  save: () => void;
-}
+/**
+ * A modal that will be displayed to the user when taps on 
+ * a given activity card. The modal displays a calendar, 
+ * InputSpinner to track hours spent on the activity. 
+ * This allows user to track their activity data
+ */
 
 const ActivityModal: React.FC<IActivityModal> = (props) => {
 
@@ -26,12 +24,12 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
         <View style={styles.container}>
           <View style={styles.subContainer}>
             <Text
-              style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}
+              style={styles.addTextStyle}
             >
               Add activity
             </Text>
             <View>
-              <View style={{ flexDirection: "row", alignItems: "center", margin:10}}>
+              <View style={styles.inputSpinnerView}>
                 <Text style={{ fontSize: 15 }}>Hours spent: </Text>
                 <InputSpinner
                   min={0}
@@ -42,8 +40,8 @@ const ActivityModal: React.FC<IActivityModal> = (props) => {
                   onChange={props.setActivityHour}
                 />
               </View>
-              <View style={{flexDirection:"row",alignItems:"center"}}>
-              <Text style={{ fontSize: 15,marginLeft:10 }}>Activity date: </Text>
+              <View style={styles.calendarComponentView}>
+              <Text style={styles.dateTextStyle}>Activity date: </Text>
               <CalendarComponent 
                 modeType={"date"}
                 date={props.activityDate}
@@ -128,6 +126,24 @@ const styles = StyleSheet.create({
   cancelTextStyle:{
     color:"black",
     fontSize:15
+  },
+  calendarComponentView:{
+    flexDirection:"row",
+    alignItems:"center"
+  },
+  addTextStyle:{
+    fontSize: 20, 
+    fontWeight: "bold",
+    marginBottom: 10
+  },
+  inputSpinnerView:{
+    flexDirection: "row", 
+    alignItems: "center", 
+    margin:10
+  },
+  dateTextStyle:{
+    fontSize: 15,
+    marginLeft:10
   }
 });
 

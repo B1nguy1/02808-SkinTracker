@@ -1,18 +1,14 @@
-import RNDateTimePicker, {
-  AndroidNativeProps,
-} from "@react-native-community/datetimepicker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 import React from "react";
 import { View } from "react-native";
 
-type test = {
+type CalendarProps = {
   modeType: "date" | "time";
   date: Date;
   onChange: (event: any, selectedDate?: Date | undefined) => void;
 };
 
-
-
-const CalendarComponent: React.FC<test> = ({ modeType, date, onChange }) => {
+const CalendarComponent: React.FC<CalendarProps> = ({ modeType, date, onChange }) => {
   return (
     <View>
       <RNDateTimePicker

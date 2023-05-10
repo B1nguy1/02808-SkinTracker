@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { IRecordCard } from "../utils/interfaces";
 import { HandleIconType } from "../utils/IconFinder";
 import { AntDesign } from "@expo/vector-icons";
@@ -10,8 +10,8 @@ const RecordCard = ({ rcId, rcTitle, rcIcon,onPress }: IRecordCard): JSX.Element
   return (
     <View style={styles.cardStyle}>
       <View>
-        <TouchableOpacity key={rcId} onPress={onPress} style={{width:350}}>
-          <View style={{position:"absolute",left:2, marginTop:20}}>
+        <TouchableOpacity key={rcId} onPress={onPress} style={styles.customButtonView}>
+          <View style={styles.firstIconView}>
           <HandleIconType iconName={rcIcon} size={34} />
           </View>
           <Text style={styles.cardTextStyle}>
@@ -51,6 +51,14 @@ const styles = StyleSheet.create({
   iconViewStyle:{
     position:"absolute",
     right:0,
+  },
+  firstIconView:{
+    position:"absolute",
+    left:2,
+    marginTop:20
+  },
+  customButtonView:{
+    width:350
   }
   
 })

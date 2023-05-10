@@ -13,11 +13,10 @@ const DropDownMenu:React.FC<IDropDown> = ({data,setSelected,placeholder}) => {
             placeholder={placeholder}
             dropdownTextStyles={{fontSize:16}}
             boxStyles={{width:"70%",margin:10, marginLeft:50}}
-            inputStyles={{width:"90%",borderRadius:0}}
+            inputStyles={{width:"80%",borderRadius:0}}
             save="value"
         />
-    )
-}
-
+    );
+};
 
 export default DropDownMenu;

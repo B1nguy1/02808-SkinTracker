@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import UserScreen from "../screens/UserScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
@@ -10,7 +9,6 @@ import {
   FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import VisualizationScreen from "../screens/VisualizationScreen";
 import { RecordingNavigation } from "./RecordingNavigation";
 import { UserNavigation } from "./UserNavigation";
 
@@ -38,6 +36,7 @@ export const ScreenNavigator = () => {
         component={BottomTabNavigator}
         options={{
           headerShown: false,
+          gestureEnabled:false
         }}
       />
     </Stack.Navigator>

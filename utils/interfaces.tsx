@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface IUserSkin {
     id: string;
     skinType:string;
@@ -45,3 +47,22 @@ export interface IDropDown{
     setSelected: (val: string) => void;
 }
 
+export interface IActivityData {
+    activity_date: Timestamp;
+    activity_calories: number;
+}
+
+export interface IActivityModal {
+  setVisible: () => void;
+  visible: boolean;
+  activityHour: number;
+  setActivityHour: (hour:number) => void;
+  activityDate: Date;
+  handleDateChange: (event: any, selectedDate?: Date | undefined) => void;
+  save: () => void;
+}
+
+export interface IHealthDataModal {
+    setVisible: () => void;
+    visible: boolean;
+}
