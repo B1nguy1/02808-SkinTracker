@@ -99,13 +99,13 @@ const ActivityOverview = () => {
       displayText = (
         <Text>
           Overall most of the time the activity consumption was up to standard. Your average  
-          activity consumption is {averageCalory}
+          activity consumption is {Math.round(averageCalory)}
         </Text>
       );
     } else if (averageCalory < 2000) {
       displayText = (
         <Text>
-          Your currently average activity consumption {averageCalory} does not meet the standard. Average activity consumption
+          Your currently average activity consumption on {Math.round(averageCalory)} does not meet the standard. Average activity consumption
           should be around 2000-2500. 
         </Text>
       );

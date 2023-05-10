@@ -71,7 +71,7 @@ const DailySkinScreen = () => {
       <View style={styles.subContainer}>
       <Text style={styles.textStyle}> How is your skin feeling today? </Text>
         <DropDownMenu
-          placeholder={"Select skin value"}
+          placeholder={"Select skin type"}
           data={skinConditionsData}
           setSelected={(value: string) => setSkinValue(value)}
         />

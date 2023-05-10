@@ -1,4 +1,4 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import React from "react";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
@@ -52,7 +52,8 @@ const SkinFactorsOverview = () => {
   const skinCollection = collection(db, "skinData");
   const skinQuery = query(
     skinCollection,
-    where("userRef", "==", getAuth().currentUser?.uid)
+    where("userRef", "==", getAuth().currentUser?.uid), orderBy("timeStamp", "desc"),
+    limit(1)
   );
 
   React.useEffect(() => {

@@ -126,23 +126,23 @@ const SleepOverview = () => {
   const sleepHourConditions = (list: any, column: string) => {
     const sleepAverageHour = getSleepAverageHour(list, column);
     let displayText;
-    if (sleepAverageHour >= 7 && sleepAverageHour <= 8) {
+    if (sleepAverageHour >= 7 && sleepAverageHour <= 8.5) {
       displayText = (
         <Text>
           You got optimum number of sleep. Your average sleep hour is{" "}
-          {sleepAverageHour} which is between 7 and 8 hours
+          {Math.round(sleepAverageHour)} which is between 7 and 8 hours
         </Text>
       );
     } else if (sleepAverageHour < 7) {
       displayText = (
         <Text>
           You don't get optimum number of sleep. Your average sleep hour is{" "}
-          {sleepAverageHour}. Average sleep hour should be between 7 and 8
+          {Math.round(sleepAverageHour)}. Average sleep hour should be between 7 and 8
           hours.
         </Text>
       );
     } else {
-      displayText = <Text> Your optimum number of sleep which is {sleepAverageHour} hours, is too much</Text>;
+      displayText = <Text> Your optimum number of sleep which is {Math.round(sleepAverageHour)} hours, is too much</Text>;
     }
     return displayText;
   };
