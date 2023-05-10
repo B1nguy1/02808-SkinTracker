@@ -10,6 +10,9 @@ export type HomeNavigationParamList = {
 
 const Stack = createStackNavigator<HomeNavigationParamList>();
 
+
+// Component HomeNavigation lets a user to navigate between screens in Home tab
+
 export const HomeNavigation = () => {
     return(
     <Stack.Navigator>
@@ -33,7 +36,7 @@ export const HomeNavigation = () => {
                 },
                 headerTitleStyle:{
                      color:"#FF75A7",
-                     fontSize:23,
+                     fontSize:23
                 }
             }}
         />

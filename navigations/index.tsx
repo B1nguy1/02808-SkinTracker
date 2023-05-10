@@ -21,6 +21,10 @@ export type ScreenStackParamList = {
 
 const Stack = createStackNavigator<ScreenStackParamList>();
 
+/**
+ * https://reactnavigation.org/docs/stack-navigator/
+ */
+
 export const ScreenNavigator = () => {
   return (
     <Stack.Navigator>
@@ -45,6 +49,7 @@ export const ScreenNavigator = () => {
 
 const Tab = createBottomTabNavigator();
 
+//Bottom tab that displays different tabs that shows different screens
 export const BottomTabNavigator = () => {
   return (
     <SafeAreaProvider>

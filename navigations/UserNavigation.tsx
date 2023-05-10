@@ -13,6 +13,7 @@ export type UserNavigationParamList = {
 
 const Stack = createStackNavigator<UserNavigationParamList>();
 
+// Lets a user to navigate between screens in User tab
 export const UserNavigation = () => {
     return (
         <Stack.Navigator>

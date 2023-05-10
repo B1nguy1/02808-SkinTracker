@@ -14,6 +14,7 @@ export type RecordingNavigationParamList = {
 
 const Stack = createStackNavigator<RecordingNavigationParamList>();
 
+// Lets a user to navigate between screens in recording tab
 export const RecordingNavigation = () => {
     return (
         <Stack.Navigator>
