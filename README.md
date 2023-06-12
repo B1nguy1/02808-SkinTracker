@@ -1,6 +1,6 @@
 # SkinTracker
 
-SkinTracker is a mobile application that has been developed by three students of DTU as a part of the course 02808 - Personal Data Interaction for Mobile and Wearables at Technical University of Denmark (DTU). The application aims to help users to improve their current skin condition.
+SkinTracker is a mobile application that is developed by three students as a part of the course 02808 - Personal Data Interaction for Mobile and Wearables at Technical University of Denmark (DTU). The application aims to help users to improve their current skin condition.
 
 # How to run the application
 After the project has been cloned to your own computer:
@@ -22,6 +22,3 @@ For both devices, make sure that "Expo Go" has been downloaded to your phone
 1. Open **Expo Go** app
 2. Press on **QR Code** under projects
 3. Scan the QR code that appears in the terminal
-
-# Short demo of SkinTracker
-https://www.youtube.com/watch?v=aMbdYWyCCjc 
